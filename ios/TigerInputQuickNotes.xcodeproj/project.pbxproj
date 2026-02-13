@@ -9,22 +9,46 @@
 /* Begin PBXBuildFile section */
 		0C80B921A6F3F58F76C31292 /* libPods-TigerInputQuickNotes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-TigerInputQuickNotes.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		1C8E5B8D1F1143C7B861F4C0 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10CD099F36AD426CAB025F5A /* Manrope-Regular.ttf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		91F0703C88FE422F8DCC1D53 /* Manrope-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEDCB75474F548A6B6434015 /* Manrope-Bold.ttf */; };
+		9CD38D8033CE429E89E3AFB6 /* Manrope-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55FBEF6467D144A087820FB3 /* Manrope-Light.ttf */; };
+		A5E67BC6ACD246C584DBF5C9 /* Manrope-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23F0A5A425094A428EC22C06 /* Manrope-Medium.ttf */; };
+		B53541884F39451784BF377C /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D48EB8DE04442459A44BC11 /* Manrope-ExtraBold.ttf */; };
 		CAFA4EF055B27B24D98269A3 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		D17065162F3E2FE5005B26FD /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17065152F3E2FE5005B26FD /* AVFoundation.framework */; };
+		D17065182F3E2FEB005B26FD /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17065172F3E2FEB005B26FD /* AVKit.framework */; };
+		D170651A2F3E2FF0005B26FD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D17065192F3E2FF0005B26FD /* AudioToolbox.framework */; };
+		D170651C2F3E3077005B26FD /* music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D170651B2F3E3077005B26FD /* music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3 */; };
+		E034BD3030DD43AC8BA9AA69 /* Manrope-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4A5844B744F4BA3911787C5 /* Manrope-ExtraLight.ttf */; };
+		F535CE4AE8F74B88AAA5263F /* Manrope-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 159D63E3FB8047A195821484 /* Manrope-SemiBold.ttf */; };
+		A6C2788B7C0444F78592F21E /* PaytoneOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E46E868ECA1428DAC6E748E /* PaytoneOne-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D48EB8DE04442459A44BC11 /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraBold.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
+		10CD099F36AD426CAB025F5A /* Manrope-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Regular.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TigerInputQuickNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TigerInputQuickNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = TigerInputQuickNotes/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = TigerInputQuickNotes/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = TigerInputQuickNotes/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		159D63E3FB8047A195821484 /* Manrope-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-SemiBold.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-SemiBold.ttf"; sourceTree = "<group>"; };
+		23F0A5A425094A428EC22C06 /* Manrope-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Medium.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-Medium.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-TigerInputQuickNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TigerInputQuickNotes.debug.xcconfig"; path = "Target Support Files/Pods-TigerInputQuickNotes/Pods-TigerInputQuickNotes.debug.xcconfig"; sourceTree = "<group>"; };
+		55FBEF6467D144A087820FB3 /* Manrope-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Light.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-Light.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-TigerInputQuickNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TigerInputQuickNotes.release.xcconfig"; path = "Target Support Files/Pods-TigerInputQuickNotes/Pods-TigerInputQuickNotes.release.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-TigerInputQuickNotes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TigerInputQuickNotes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = TigerInputQuickNotes/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = TigerInputQuickNotes/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D17065152F3E2FE5005B26FD /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D17065172F3E2FEB005B26FD /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		D17065192F3E2FF0005B26FD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D170651B2F3E3077005B26FD /* music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3"; sourceTree = "<group>"; };
+		DEDCB75474F548A6B6434015 /* Manrope-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-Bold.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-Bold.ttf"; sourceTree = "<group>"; };
+		E4A5844B744F4BA3911787C5 /* Manrope-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Manrope-ExtraLight.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/Manrope-ExtraLight.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		8E46E868ECA1428DAC6E748E /* PaytoneOne-Regular.ttf */ = {isa = PBXFileReference; name = "PaytoneOne-Regular.ttf"; path = "../TigerInputQuickNotes/QuickNotesAssets/fonts/PaytoneOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D170651A2F3E2FF0005B26FD /* AudioToolbox.framework in Frameworks */,
+				D17065182F3E2FEB005B26FD /* AVKit.framework in Frameworks */,
+				D17065162F3E2FE5005B26FD /* AVFoundation.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-TigerInputQuickNotes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,10 +81,29 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D17065192F3E2FF0005B26FD /* AudioToolbox.framework */,
+				D17065172F3E2FEB005B26FD /* AVKit.framework */,
+				D17065152F3E2FE5005B26FD /* AVFoundation.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-TigerInputQuickNotes.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		566787C5BB4D4AE7A82240BE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				23F0A5A425094A428EC22C06 /* Manrope-Medium.ttf */,
+				159D63E3FB8047A195821484 /* Manrope-SemiBold.ttf */,
+				0D48EB8DE04442459A44BC11 /* Manrope-ExtraBold.ttf */,
+				10CD099F36AD426CAB025F5A /* Manrope-Regular.ttf */,
+				E4A5844B744F4BA3911787C5 /* Manrope-ExtraLight.ttf */,
+				55FBEF6467D144A087820FB3 /* Manrope-Light.ttf */,
+				DEDCB75474F548A6B6434015 /* Manrope-Bold.ttf */,
+				8E46E868ECA1428DAC6E748E /* PaytoneOne-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -75,6 +121,8 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				D170651B2F3E3077005B26FD /* music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3 */,
+				566787C5BB4D4AE7A82240BE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -158,9 +206,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D170651C2F3E3077005B26FD /* music_unlimited-african-cinematic-ethnic-uplifting-background-music-135532.mp3 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				CAFA4EF055B27B24D98269A3 /* PrivacyInfo.xcprivacy in Resources */,
+				A5E67BC6ACD246C584DBF5C9 /* Manrope-Medium.ttf in Resources */,
+				F535CE4AE8F74B88AAA5263F /* Manrope-SemiBold.ttf in Resources */,
+				B53541884F39451784BF377C /* Manrope-ExtraBold.ttf in Resources */,
+				1C8E5B8D1F1143C7B861F4C0 /* Manrope-Regular.ttf in Resources */,
+				E034BD3030DD43AC8BA9AA69 /* Manrope-ExtraLight.ttf in Resources */,
+				9CD38D8033CE429E89E3AFB6 /* Manrope-Light.ttf in Resources */,
+				91F0703C88FE422F8DCC1D53 /* Manrope-Bold.ttf in Resources */,
+				A6C2788B7C0444F78592F21E /* PaytoneOne-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

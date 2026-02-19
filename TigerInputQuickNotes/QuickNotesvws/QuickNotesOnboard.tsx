@@ -12,22 +12,22 @@ import {
 import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
 
 type NavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesOnboard'
 >;
 
-const onboardImages: ImageSourcePropType[] = [
+const tggOnboardImges: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/on1.png'),
   require('../QuickNotesAssets/images/wlcm/on2.png'),
   require('../QuickNotesAssets/images/wlcm/on3.png'),
   require('../QuickNotesAssets/images/wlcm/on4.png'),
 ];
 
-const onboardTexts: ImageSourcePropType[] = [
+const tggOnboardTxts: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/text1.png'),
   require('../QuickNotesAssets/images/wlcm/text2.png'),
   require('../QuickNotesAssets/images/wlcm/text3.png'),
@@ -38,7 +38,7 @@ const QuickNotesOnboard: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigation = useNavigation<NavigationProp>();
 
-  const handleRainBornNext = useCallback(() => {
+  const tggBrtnNext = useCallback(() => {
     setCurrentIndex(prev => {
       const next = prev + 1;
       if (next > 3) navigation.navigate('QuickNotesHome');
@@ -60,10 +60,10 @@ const QuickNotesOnboard: React.FC = () => {
           source={require('../QuickNotesAssets/images/wlcm/onboardframe.png')}
           style={styles.textboard}
         >
-          <Image source={onboardTexts[currentIndex]} />
+          <Image source={tggOnboardTxts[currentIndex]} />
         </ImageBackground>
         <Image
-          source={onboardImages[currentIndex]}
+          source={tggOnboardImges[currentIndex]}
           style={[
             styles.onboardImage,
             currentIndex === 1 && { marginTop: 70 },
@@ -72,7 +72,7 @@ const QuickNotesOnboard: React.FC = () => {
           ]}
         />
 
-        <TouchableOpacity onPress={handleRainBornNext} activeOpacity={0.8}>
+        <TouchableOpacity onPress={tggBrtnNext} activeOpacity={0.8}>
           <ImageBackground
             source={require('../QuickNotesAssets/images/wlcm/btn.png')}
             style={styles.button}

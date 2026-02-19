@@ -10,14 +10,15 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
 import {
   useQuickNotesStore,
   type MarkItem,
   type SavedNumberItem,
   type SavedNoteItem,
-} from '../QuickNotesStore/quickNotesCntxt';
+} from '../QuickNotessttrg/quickNotesCntxt';
 import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<
@@ -29,10 +30,10 @@ type TabKey = 'numbers' | 'text' | 'mark';
 
 function formatDateFromTimestamp(ts: number): string {
   const date = new Date(ts);
-  const d = date.getDate().toString().padStart(2, '0');
-  const m = (date.getMonth() + 1).toString().padStart(2, '0');
-  const y = date.getFullYear();
-  return `${d}.${m}.${y}`;
+  const dday = date.getDate().toString().padStart(2, '0');
+  const mmonth = (date.getMonth() + 1).toString().padStart(2, '0');
+  const yyear = date.getFullYear();
+  return `${dday}.${mmonth}.${yyear}`;
 }
 
 const QuickNotesHistory: React.FC = () => {
@@ -40,34 +41,13 @@ const QuickNotesHistory: React.FC = () => {
   const { savedNumbers, savedNotes, marks } = useQuickNotesStore();
   const [activeTab, setActiveTab] = useState<TabKey>('numbers');
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        style={styles.backButton}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image
-          source={require('../QuickNotesAssets/images/backbutton.png')}
-          style={styles.backButtonImage}
-        />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/historyttl.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
-
-  const tabs: { key: TabKey; label: string }[] = [
+  const tggTabs: { key: TabKey; label: string }[] = [
     { key: 'numbers', label: 'NUMBERS' },
     { key: 'text', label: 'TEXT' },
     { key: 'mark', label: 'MARK' },
   ];
 
-  const listData = useMemo(() => {
+  const tggListDdt = useMemo(() => {
     if (activeTab === 'numbers') {
       return [...savedNumbers].reverse();
     }
@@ -149,10 +129,12 @@ const QuickNotesHistory: React.FC = () => {
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        {header}
-
+        <QuickNotesScreenHeader
+          onBack={() => navigation.goBack()}
+          titleImage={require('../QuickNotesAssets/images/historyttl.png')}
+        />
         <View style={styles.tabsRow}>
-          {tabs.map(({ key, label }) => (
+          {tggTabs.map(({ key, label }) => (
             <LinearGradient
               key={key}
               colors={['#F74408', '#DF1503']}
@@ -173,7 +155,7 @@ const QuickNotesHistory: React.FC = () => {
         </View>
 
         <FlatList
-          data={listData}
+          data={tggListDdt}
           scrollEnabled={false}
           renderItem={renderCard}
           keyExtractor={keyExtractor}

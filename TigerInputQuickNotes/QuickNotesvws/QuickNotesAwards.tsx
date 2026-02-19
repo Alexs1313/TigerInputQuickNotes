@@ -1,9 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
 import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<
@@ -12,32 +13,15 @@ type NavigationProp = StackNavigationProp<
 >;
 
 const QuickNotesAwards: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
-
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image
-          source={require('../QuickNotesAssets/images/backbutton.png')}
-          style={styles.backButtonImage}
-        />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/awardsttl.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
+  const tggNav = useNavigation<NavigationProp>();
 
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        {header}
+        <QuickNotesScreenHeader
+          onBack={() => tggNav.goBack()}
+          titleImage={require('../QuickNotesAssets/images/awardsttl.png')}
+        />
         <View style={styles.content}>
           <LinearGradient
             colors={['#F74408', '#DF1503']}

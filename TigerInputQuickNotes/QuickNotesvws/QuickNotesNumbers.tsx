@@ -9,9 +9,10 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotesStore/quickNotesCntxt';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<
@@ -19,65 +20,43 @@ type NavigationProp = StackNavigationProp<
   'QuickNotesNumbers'
 >;
 
-function formatDate(date: Date): string {
-  const d = date.getDate().toString().padStart(2, '0');
-  const m = (date.getMonth() + 1).toString().padStart(2, '0');
-  const y = date.getFullYear();
-  return `${d}.${m}.${y}`;
+function frmmtTgdate(date: Date): string {
+  const dday = date.getDate().toString().padStart(2, '0');
+  const mmonth = (date.getMonth() + 1).toString().padStart(2, '0');
+  const yyear = date.getFullYear();
+  return `${dday}.${mmonth}.${yyear}`;
 }
 
-const KEYPAD_TOP = [
+const tggKeypadTop = [
   ['1', '2', '3'],
   ['4', '5', '6'],
   ['7', '8', '9'],
 ];
 
 const QuickNotesNumbers: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const tggNav = useNavigation<NavigationProp>();
   const { addSavedNumber } = useQuickNotesStore();
   const [value, setValue] = useState('');
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
-  const onDigit = useCallback((digit: string) => {
+  const tggOnDigit = useCallback((digit: string) => {
     setValue(prev => prev + digit);
   }, []);
 
-  const onBackspace = useCallback(() => {
-    setValue(prev => prev.slice(0, -1));
-  }, []);
-
-  const onSave = useCallback(() => {
+  const svQnNmbrs = useCallback(() => {
     const trimmed = value.trim();
     if (trimmed === '') return;
-    const dateStr = formatDate(new Date());
-    addSavedNumber(trimmed, dateStr);
+    const tggDateStr = frmmtTgdate(new Date());
+    addSavedNumber(trimmed, tggDateStr);
     setValue('');
   }, [value, addSavedNumber]);
-
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        style={styles.backButton}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image
-          source={require('../QuickNotesAssets/images/backbutton.png')}
-          style={styles.backButtonImage}
-        />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/numberstitle.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
 
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        {header}
+        <QuickNotesScreenHeader
+          onBack={() => tggNav.goBack()}
+          titleImage={require('../QuickNotesAssets/images/numberstitle.png')}
+        />
 
         <ImageBackground
           source={require('../QuickNotesAssets/images/smboard.png')}
@@ -107,13 +86,13 @@ const QuickNotesNumbers: React.FC = () => {
             </View>
 
             <View style={styles.keypad}>
-              {KEYPAD_TOP.map((row, rowIndex) => (
+              {tggKeypadTop.map((row, rowIndex) => (
                 <View key={rowIndex} style={styles.keypadRow}>
                   {row.map(digit => (
                     <TouchableOpacity
                       key={digit}
                       style={styles.keypadBtn}
-                      onPress={() => onDigit(digit)}
+                      onPress={() => tggOnDigit(digit)}
                       activeOpacity={0.8}
                     >
                       <Text style={styles.keypadBtnText}>{digit}</Text>
@@ -124,13 +103,13 @@ const QuickNotesNumbers: React.FC = () => {
               <View style={styles.keypadRow}>
                 <TouchableOpacity
                   style={styles.keypadBtn}
-                  onPress={() => onDigit('0')}
+                  onPress={() => tggOnDigit('0')}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.keypadBtnText}>0</Text>
                 </TouchableOpacity>
                 {value.trim() !== '' && (
-                  <TouchableOpacity onPress={onSave} activeOpacity={0.8}>
+                  <TouchableOpacity onPress={svQnNmbrs} activeOpacity={0.8}>
                     <ImageBackground
                       source={require('../QuickNotesAssets/images/saveBtn.png')}
                       style={styles.saveButton}

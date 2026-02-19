@@ -13,15 +13,21 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotesStore/quickNotesCntxt';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 
-function formatDate(date: Date): string {
-  const d = date.getDate().toString().padStart(2, '0');
-  const m = (date.getMonth() + 1).toString().padStart(2, '0');
-  const y = date.getFullYear();
-  return `${d}.${m}.${y}`;
+// format date to dd.mm.yyyy
+
+function frmmtTgdate(date: Date): string {
+  const dday = date.getDate().toString().padStart(2, '0');
+
+  const mmonth = (date.getMonth() + 1).toString().padStart(2, '0');
+
+  const yyear = date.getFullYear();
+
+  return `${dday}.${mmonth}.${yyear}`;
 }
 
 type NavigationProp = StackNavigationProp<
@@ -30,7 +36,6 @@ type NavigationProp = StackNavigationProp<
 >;
 
 const FRAME_BTN = require('../QuickNotesAssets/images/wlcm/btn.png');
-
 const DARK_BG = '#45000ADB';
 
 const QuickNotesAddNote: React.FC = () => {
@@ -39,41 +44,28 @@ const QuickNotesAddNote: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [text, setText] = useState('');
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
-  const handleAddNewNote = useCallback(() => {
+  const addNewTgrnote = () => {
     setShowForm(true);
-  }, []);
+  };
 
-  const handleSave = useCallback(() => {
-    const trimmed = text.trim();
-    if (trimmed) {
-      addSavedNote(trimmed, formatDate(new Date()));
+  const svTgrNot = useCallback(() => {
+    const trmm = text.trim();
+
+    if (trmm) {
+      addSavedNote(trmm, frmmtTgdate(new Date()));
     }
-    goBack();
-  }, [text, addSavedNote, goBack]);
 
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        style={styles.backButton}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image source={require('../QuickNotesAssets/images/backbutton.png')} />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/texttitle.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
+    navigation.goBack();
+  }, [text, addSavedNote]);
 
   if (!showForm) {
     return (
       <QuickNotesLayout>
         <View style={styles.container}>
-          {header}
+          <QuickNotesScreenHeader
+            onBack={() => navigation.goBack()}
+            titleImage={require('../QuickNotesAssets/images/texttitle.png')}
+          />
           <View style={styles.initialContent}>
             <View>
               <ImageBackground
@@ -95,7 +87,7 @@ const QuickNotesAddNote: React.FC = () => {
               source={require('../QuickNotesAssets/images/loadertiger.png')}
               style={styles.loaderTiger}
             />
-            <TouchableOpacity onPress={handleAddNewNote} activeOpacity={0.8}>
+            <TouchableOpacity onPress={addNewTgrnote} activeOpacity={0.8}>
               <ImageBackground source={FRAME_BTN} style={styles.addButton}>
                 <Text style={styles.addButtonText}>ADD NEW NOTE</Text>
               </ImageBackground>
@@ -120,7 +112,10 @@ const QuickNotesAddNote: React.FC = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
         >
-          {header}
+          <QuickNotesScreenHeader
+            onBack={() => navigation.goBack()}
+            titleImage={require('../QuickNotesAssets/images/texttitle.png')}
+          />
           <View style={styles.formContent}>
             <View style={styles.cardFrame}>
               <Text style={styles.cardLabel}>ADD NEW NOTE</Text>
@@ -134,7 +129,7 @@ const QuickNotesAddNote: React.FC = () => {
                 textAlignVertical="top"
               />
             </View>
-            <TouchableOpacity onPress={handleSave} activeOpacity={0.8}>
+            <TouchableOpacity onPress={svTgrNot} activeOpacity={0.8}>
               <ImageBackground
                 source={require('../QuickNotesAssets/images/saveBtn.png')}
                 style={styles.saveButton}

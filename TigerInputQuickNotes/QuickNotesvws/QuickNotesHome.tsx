@@ -11,21 +11,21 @@ import {
 } from 'react-native';
 import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Sound from 'react-native-sound';
-import { useQuickNotesStore } from '../QuickNotesStore/quickNotesCntxt';
+import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 
 type NavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesHome'
 >;
 
-const FRAME_BTN = require('../QuickNotesAssets/images/wlcm/btn.png');
-const FRAME_BOX = require('../QuickNotesAssets/images/wlcm/onboardframe.png');
+const tggFrameBtn = require('../QuickNotesAssets/images/wlcm/btn.png');
+const tggFrameBox = require('../QuickNotesAssets/images/wlcm/onboardframe.png');
 
-const TIPS = [
+const tggTps = [
   'Short notes work better than long ones - they are easier to remember.',
   'A number written down right away is less likely to be lost.',
   'Memory gets overloaded with trifles faster than important ones.',
@@ -59,23 +59,22 @@ const TIPS = [
 ];
 
 function pickRandomTip(): string {
-  return TIPS[Math.floor(Math.random() * TIPS.length)];
+  return tggTps[Math.floor(Math.random() * tggTps.length)];
 }
 
-export const HOME_GRID_ICONS: Record<string, ImageSourcePropType | undefined> =
-  {
-    number: undefined,
-    text: undefined,
-    marknow: undefined,
-    award: undefined,
-    settings: undefined,
-    history: undefined,
-  };
+export const tggHmGridIcn: Record<string, ImageSourcePropType | undefined> = {
+  number: undefined,
+  text: undefined,
+  marknow: undefined,
+  award: undefined,
+  settings: undefined,
+  history: undefined,
+};
 
-const GRID_BUTTONS: {
+const tggRtsBtnS: {
   key: string;
   label: string;
-  image: ImageSourcePropType;
+  image: ImageSourcePropType | undefined;
 }[] = [
   {
     key: 'number',
@@ -205,14 +204,14 @@ const QuickNotesHome: React.FC = () => {
     }
   };
 
-  const handleShare = async () => {
+  const shreQnHm = async () => {
     try {
       await Share.share({
         message: tip,
         title: 'Quick note tip',
       });
     } catch {
-      // user cancelled or share failed
+      console.error('Error => share failed');
     }
   };
 
@@ -221,22 +220,22 @@ const QuickNotesHome: React.FC = () => {
       <View style={styles.container}>
         <Image source={require('../QuickNotesAssets/images/homeLogo.png')} />
 
-        <ImageBackground source={FRAME_BOX} style={styles.messageBox}>
+        <ImageBackground source={tggFrameBox} style={styles.messageBox}>
           <Text style={styles.messageText}>{tip}</Text>
         </ImageBackground>
 
         <TouchableOpacity
-          onPress={handleShare}
+          onPress={shreQnHm}
           activeOpacity={0.8}
           style={{ top: -70 }}
         >
-          <ImageBackground source={FRAME_BTN} style={styles.shareButton}>
+          <ImageBackground source={tggFrameBtn} style={styles.shareButton}>
             <Text style={styles.shareButtonText}>SHARE</Text>
           </ImageBackground>
         </TouchableOpacity>
 
         <View style={styles.grid}>
-          {GRID_BUTTONS.map(({ key, label, image }) => (
+          {tggRtsBtnS.map(({ key, label, image }) => (
             <TouchableOpacity
               key={key}
               activeOpacity={0.8}
@@ -259,9 +258,9 @@ const QuickNotesHome: React.FC = () => {
             >
               <ImageBackground source={image} style={styles.gridButtonFrame}>
                 <View style={styles.gridButtonIcon}>
-                  {HOME_GRID_ICONS[key] ? (
+                  {tggHmGridIcn[key] ? (
                     <Image
-                      source={HOME_GRID_ICONS[key]}
+                      source={tggHmGridIcn[key]}
                       style={styles.gridButtonImage}
                       resizeMode="contain"
                     />

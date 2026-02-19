@@ -8,7 +8,7 @@ import React, {
   useState,
 } from 'react';
 
-const STORAGE_KEYS = {
+const tggStgKeys = {
   BACKGROUND_ID: '@QuickNotes/backgroundId',
   SOUND_ENABLED: '@QuickNotes/soundEnabled',
   MARKS: '@QuickNotes/marks',
@@ -63,14 +63,12 @@ export interface StoreProviderProps {
   children: React.ReactNode;
 }
 
-const DEFAULT_BACKGROUND_ID = 'bg';
+const tggDefBgId = 'bg';
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const [quickNotesSoundEnabled, setQuickNotesSoundEnabled] =
     useState<boolean>(false);
-  const [backgroundId, setBackgroundIdState] = useState<string>(
-    DEFAULT_BACKGROUND_ID,
-  );
+  const [backgroundId, setBackgroundIdState] = useState<string>(tggDefBgId);
   const [marks, setMarks] = useState<MarkItem[]>([]);
   const [savedNumbers, setSavedNumbers] = useState<SavedNumberItem[]>([]);
   const [savedNotes, setSavedNotes] = useState<SavedNoteItem[]>([]);
@@ -79,11 +77,11 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
       try {
         const [bg, sound, marksJson, numbersJson, notesJson] =
           await Promise.all([
-            AsyncStorage.getItem(STORAGE_KEYS.BACKGROUND_ID),
-            AsyncStorage.getItem(STORAGE_KEYS.SOUND_ENABLED),
-            AsyncStorage.getItem(STORAGE_KEYS.MARKS),
-            AsyncStorage.getItem(STORAGE_KEYS.SAVED_NUMBERS),
-            AsyncStorage.getItem(STORAGE_KEYS.SAVED_NOTES),
+            AsyncStorage.getItem(tggStgKeys.BACKGROUND_ID),
+            AsyncStorage.getItem(tggStgKeys.SOUND_ENABLED),
+            AsyncStorage.getItem(tggStgKeys.MARKS),
+            AsyncStorage.getItem(tggStgKeys.SAVED_NUMBERS),
+            AsyncStorage.getItem(tggStgKeys.SAVED_NOTES),
           ]);
         if (bg != null) setBackgroundIdState(bg);
         if (sound != null) setQuickNotesSoundEnabled(sound === 'true');
@@ -100,19 +98,19 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
           if (Array.isArray(parsed)) setSavedNotes(parsed);
         }
       } catch {
-        // ignore
+        console.error('Error => load quick notes store failed');
       }
     })();
   }, []);
 
   const setBackgroundId = useCallback((id: string) => {
     setBackgroundIdState(id);
-    AsyncStorage.setItem(STORAGE_KEYS.BACKGROUND_ID, id).catch(() => {});
+    AsyncStorage.setItem(tggStgKeys.BACKGROUND_ID, id).catch(() => {});
   }, []);
 
   const setQuickNotesSoundEnabledPersist = useCallback((value: boolean) => {
     setQuickNotesSoundEnabled(value);
-    AsyncStorage.setItem(STORAGE_KEYS.SOUND_ENABLED, String(value)).catch(
+    AsyncStorage.setItem(tggStgKeys.SOUND_ENABLED, String(value)).catch(
       () => {},
     );
   }, []);
@@ -121,7 +119,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
     setMarks(prev => {
       const nextId = prev.length > 0 ? Math.max(...prev.map(m => m.id)) + 1 : 1;
       const next = [...prev, { id: nextId, timestamp: Date.now(), timeString }];
-      AsyncStorage.setItem(STORAGE_KEYS.MARKS, JSON.stringify(next)).catch(
+      AsyncStorage.setItem(tggStgKeys.MARKS, JSON.stringify(next)).catch(
         () => {},
       );
       return next;
@@ -133,7 +131,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
       const nextId = prev.length > 0 ? Math.max(...prev.map(n => n.id)) + 1 : 1;
       const next = [...prev, { id: nextId, value, date }];
       AsyncStorage.setItem(
-        STORAGE_KEYS.SAVED_NUMBERS,
+        tggStgKeys.SAVED_NUMBERS,
         JSON.stringify(next),
       ).catch(() => {});
       return next;
@@ -144,10 +142,9 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
     setSavedNotes(prev => {
       const nextId = prev.length > 0 ? Math.max(...prev.map(n => n.id)) + 1 : 1;
       const next = [...prev, { id: nextId, text, date }];
-      AsyncStorage.setItem(
-        STORAGE_KEYS.SAVED_NOTES,
-        JSON.stringify(next),
-      ).catch(() => {});
+      AsyncStorage.setItem(tggStgKeys.SAVED_NOTES, JSON.stringify(next)).catch(
+        () => {},
+      );
       return next;
     });
   }, []);

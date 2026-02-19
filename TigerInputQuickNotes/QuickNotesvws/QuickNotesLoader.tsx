@@ -2,17 +2,13 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Image, StyleSheet, View } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
 
 type NavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesLoader'
 >;
-
-const LOADER_DURATION_MS = 5000;
-
-const MIRROR_INTERVAL_MS = 500;
 
 const QuickNotesLoader: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -23,12 +19,12 @@ const QuickNotesLoader: React.FC = () => {
       Animated.sequence([
         Animated.timing(mirrorAnim, {
           toValue: 1,
-          duration: MIRROR_INTERVAL_MS,
+          duration: 500,
           useNativeDriver: true,
         }),
         Animated.timing(mirrorAnim, {
           toValue: 0,
-          duration: MIRROR_INTERVAL_MS,
+          duration: 500,
           useNativeDriver: true,
         }),
       ]),
@@ -40,7 +36,7 @@ const QuickNotesLoader: React.FC = () => {
   useEffect(() => {
     const t = setTimeout(() => {
       navigation.replace('QuickNotesOnboard');
-    }, LOADER_DURATION_MS);
+    }, 5000);
     return () => clearTimeout(t);
   }, [navigation]);
 

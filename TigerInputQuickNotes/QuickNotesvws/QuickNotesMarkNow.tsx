@@ -11,9 +11,10 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotesStore/quickNotesCntxt';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<
@@ -21,70 +22,54 @@ type NavigationProp = StackNavigationProp<
   'QuickNotesMarkNow'
 >;
 
-const FRAME_BTN = require('../QuickNotesAssets/images/wlcm/btn.png');
+const tggFrameBtn = require('../QuickNotesAssets/images/wlcm/btn.png');
 
-function formatTime(date: Date): string {
-  const h = date.getHours().toString().padStart(2, '0');
-  const m = date.getMinutes().toString().padStart(2, '0');
-  const s = date.getSeconds().toString().padStart(2, '0');
-  return `${h}:${m}:${s}`;
+function frmmtTgtime(date: Date): string {
+  const hhour = date.getHours().toString().padStart(2, '0');
+  const mminute = date.getMinutes().toString().padStart(2, '0');
+  const ssecond = date.getSeconds().toString().padStart(2, '0');
+  return `${hhour}:${mminute}:${ssecond}`;
 }
 
 const QuickNotesMarkNow: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const tggNav = useNavigation<NavigationProp>();
   const { addMark, marks } = useQuickNotesStore();
-  const [now, setNow] = useState(() => formatTime(new Date()));
+  const [now, setNow] = useState(() => frmmtTgtime(new Date()));
   const [success, setSuccess] = useState(false);
   const [lastSavedTime, setLastSavedTime] = useState<string | null>(null);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setNow(formatTime(new Date()));
+    const tggId = setInterval(() => {
+      setNow(frmmtTgtime(new Date()));
     }, 1000);
-    return () => clearInterval(id);
+
+    return () => clearInterval(tggId);
   }, []);
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
   const handleMark = useCallback(() => {
-    const timeStr = formatTime(new Date());
+    const timeStr = frmmtTgtime(new Date());
+
     addMark(timeStr);
+
     setLastSavedTime(timeStr);
+
     setSuccess(true);
   }, [addMark]);
 
-  const handleShare = useCallback(async () => {
-    const text =
+  const shreQnMark = useCallback(async () => {
+    const tggTxt =
       lastSavedTime ??
       (marks.length > 0 ? marks[marks.length - 1].timeString : now);
+
     try {
       await Share.share({
-        message: `Mark now: ${text}`,
+        message: `Mark now: ${tggTxt}`,
         title: 'Mark now',
       });
     } catch {
-      // user cancelled
+      console.error('Error => share failed');
     }
   }, [lastSavedTime, marks, now]);
-
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        style={styles.backButton}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image
-          source={require('../QuickNotesAssets/images/backbutton.png')}
-          style={styles.backButtonImage}
-        />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/marktitle.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
 
   if (success) {
     return (
@@ -96,15 +81,18 @@ const QuickNotesMarkNow: React.FC = () => {
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}
         >
-          {header}
+          <QuickNotesScreenHeader
+            onBack={() => tggNav.goBack()}
+            titleImage={require('../QuickNotesAssets/images/marktitle.png')}
+          />
           <View style={styles.successContent}>
             <Text style={styles.successText}>Successfully!</Text>
             <Image
               source={require('../QuickNotesAssets/images/loadertiger.png')}
             />
 
-            <TouchableOpacity onPress={handleShare} activeOpacity={0.8}>
-              <ImageBackground source={FRAME_BTN} style={styles.shareButton}>
+            <TouchableOpacity onPress={shreQnMark} activeOpacity={0.8}>
+              <ImageBackground source={tggFrameBtn} style={styles.shareButton}>
                 <Text style={styles.shareButtonText}>SHARE</Text>
               </ImageBackground>
             </TouchableOpacity>
@@ -121,7 +109,10 @@ const QuickNotesMarkNow: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.container}>
-          {header}
+          <QuickNotesScreenHeader
+            onBack={() => tggNav.goBack()}
+            titleImage={require('../QuickNotesAssets/images/marktitle.png')}
+          />
           <View style={styles.content}>
             <LinearGradient
               colors={['#DF1503', '#DF1503']}
@@ -139,7 +130,7 @@ const QuickNotesMarkNow: React.FC = () => {
               </View>
             </LinearGradient>
             <TouchableOpacity onPress={handleMark} activeOpacity={0.8}>
-              <ImageBackground source={FRAME_BTN} style={styles.markButton}>
+              <ImageBackground source={tggFrameBtn} style={styles.markButton}>
                 <Text style={styles.markButtonText}>MARK</Text>
               </ImageBackground>
             </TouchableOpacity>

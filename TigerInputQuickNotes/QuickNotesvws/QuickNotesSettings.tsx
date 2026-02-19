@@ -10,9 +10,10 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotesComponents/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../NotesNavigation/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotesStore/quickNotesCntxt';
+import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -21,7 +22,7 @@ type NavigationProp = StackNavigationProp<
   'QuickNotesSettings'
 >;
 
-const BACKGROUND_OPTIONS = [
+const tggBgOptions = [
   { id: 'bg', source: require('../QuickNotesAssets/images/bg.png') },
   { id: 'bg2', source: require('../QuickNotesAssets/images/secbg.png') },
 ] as const;
@@ -67,7 +68,7 @@ function CustomSwitch({
 }
 
 const QuickNotesSettings: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const tggNav = useNavigation<NavigationProp>();
   const {
     quickNotesSoundEnabled,
     setQuickNotesSoundEnabled,
@@ -75,11 +76,7 @@ const QuickNotesSettings: React.FC = () => {
     setBackgroundId,
   } = useQuickNotesStore();
 
-  const goBack = useCallback(() => {
-    navigation.goBack();
-  }, [navigation]);
-
-  const toggleSound = useCallback(
+  const tggTglSound = useCallback(
     async (selectedValue: boolean): Promise<void> => {
       try {
         await AsyncStorage.setItem(
@@ -94,27 +91,13 @@ const QuickNotesSettings: React.FC = () => {
     [setQuickNotesSoundEnabled],
   );
 
-  const header = (
-    <View style={styles.header}>
-      <TouchableOpacity
-        onPress={goBack}
-        style={styles.backButton}
-        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-      >
-        <Image
-          source={require('../QuickNotesAssets/images/backbutton.png')}
-          style={styles.backButtonImage}
-        />
-      </TouchableOpacity>
-      <Image source={require('../QuickNotesAssets/images/settttl.png')} />
-      <View style={styles.headerSpacer} />
-    </View>
-  );
-
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        {header}
+        <QuickNotesScreenHeader
+          onBack={() => tggNav.goBack()}
+          titleImage={require('../QuickNotesAssets/images/settttl.png')}
+        />
         {Platform.OS === 'ios' && (
           <LinearGradient
             colors={['#F74408', '#DF1503']}
@@ -125,7 +108,7 @@ const QuickNotesSettings: React.FC = () => {
                 <Text style={styles.sectionLabel}>BACKGROUND MELODY:</Text>
                 <CustomSwitch
                   value={quickNotesSoundEnabled}
-                  onValueChange={value => toggleSound(value)}
+                  onValueChange={value => tggTglSound(value)}
                 />
               </View>
             </View>
@@ -141,7 +124,7 @@ const QuickNotesSettings: React.FC = () => {
               BACKGROUNDS:
             </Text>
             <View style={styles.backgroundsRow}>
-              {BACKGROUND_OPTIONS.map(({ id, source }) => {
+              {tggBgOptions.map(({ id, src }) => {
                 const selected = backgroundId === id;
                 return (
                   <TouchableOpacity
@@ -151,7 +134,7 @@ const QuickNotesSettings: React.FC = () => {
                     activeOpacity={0.8}
                   >
                     <Image
-                      source={source}
+                      source={src}
                       style={styles.backgroundPreview}
                       resizeMode="cover"
                     />

@@ -12,7 +12,7 @@ import {
 import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Sound from 'react-native-sound';
 import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
@@ -218,7 +218,10 @@ const QuickNotesHome: React.FC = () => {
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        <Image source={require('../QuickNotesAssets/images/homeLogo.png')} />
+        <Image
+          source={require('../QuickNotesAssets/images/applogo.png')}
+          style={{ width: 130, height: 130, borderRadius: 22 }}
+        />
 
         <ImageBackground source={tggFrameBox} style={styles.messageBox}>
           <Text style={styles.messageText}>{tip}</Text>

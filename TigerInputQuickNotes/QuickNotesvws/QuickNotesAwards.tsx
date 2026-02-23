@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
 import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import LinearGradient from 'react-native-linear-gradient';
 
 type NavigationProp = StackNavigationProp<

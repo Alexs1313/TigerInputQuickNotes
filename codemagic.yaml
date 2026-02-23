@@ -1,19 +1,19 @@
 workflows:
   ios-workflow:
-    name: 'Tigee Leo Input Quick'
+    name: 'Tiger Input — Quick Notes'
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: TigeeLeoInputQuickAPIKey
+      app_store_connect: TigerInputQuickNotesAPIKey
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.TigeeLeoInputQuick
+        bundle_identifier: com.TigerInputQuickNotes
       vars:
-        BUNDLE_ID: com.TigeeLeoInputQuick
+        BUNDLE_ID: com.TigerInputQuickNotes
         XCODE_WORKSPACE: TigerInputQuickNotes.xcworkspace
         XCODE_SCHEME: TigerInputQuickNotes
-        APP_STORE_APPLE_ID: 6759365444
+        APP_STORE_APPLE_ID: 6759552876
     scripts:
       - name: Install npm dependencies
         script: |
@@ -44,4 +44,4 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_app_store: true
-        copyright: 'Tigee Leo Input Quick 2026'
+        copyright: 'Tiger Input — Quick Notes 2026'

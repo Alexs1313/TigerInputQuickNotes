@@ -12,7 +12,7 @@ import {
 import type { StackNavigationProp } from '@react-navigation/stack';
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
 import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -124,7 +124,7 @@ const QuickNotesSettings: React.FC = () => {
               BACKGROUNDS:
             </Text>
             <View style={styles.backgroundsRow}>
-              {tggBgOptions.map(({ id, src }) => {
+              {tggBgOptions.map(({ id, source }) => {
                 const selected = backgroundId === id;
                 return (
                   <TouchableOpacity
@@ -134,7 +134,7 @@ const QuickNotesSettings: React.FC = () => {
                     activeOpacity={0.8}
                   >
                     <Image
-                      source={src}
+                      source={source}
                       style={styles.backgroundPreview}
                       resizeMode="cover"
                     />

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Image, StyleSheet, View } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
 
 type NavigationProp = StackNavigationProp<

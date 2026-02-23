@@ -15,7 +15,7 @@ import {
 import type { StackNavigationProp } from '@react-navigation/stack';
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
 import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 
 // format date to dd.mm.yyyy

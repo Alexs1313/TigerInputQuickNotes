@@ -13,7 +13,7 @@ import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../Notesrttnvgts/QuickNotesStack';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 
 type NavigationProp = StackNavigationProp<
   QuickNotesRoutesList,

@@ -24,6 +24,7 @@ const tggOnboardImges: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/on1.png'),
   require('../QuickNotesAssets/images/wlcm/on2.png'),
   require('../QuickNotesAssets/images/wlcm/on3.png'),
+  require('../QuickNotesAssets/images/strs.png'),
   require('../QuickNotesAssets/images/wlcm/on4.png'),
 ];
 
@@ -31,8 +32,11 @@ const tggOnboardTxts: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/text1.png'),
   require('../QuickNotesAssets/images/wlcm/text2.png'),
   require('../QuickNotesAssets/images/wlcm/text3.png'),
+  require('../QuickNotesAssets/images/strsint.png'),
   require('../QuickNotesAssets/images/wlcm/text4.png'),
 ];
+
+const buttonLavel = ['CONTINUE', 'OK', 'NICE', 'NEXT', 'LETS GO'];
 
 const QuickNotesOnboard: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,8 +45,8 @@ const QuickNotesOnboard: React.FC = () => {
   const tggBrtnNext = useCallback(() => {
     setCurrentIndex(prev => {
       const next = prev + 1;
-      if (next > 3) navigation.navigate('QuickNotesHome');
-      return Math.min(next, 3);
+      if (next > 4) navigation.navigate('QuickNotesHome');
+      return Math.min(next, 4);
     });
   }, [navigation]);
 
@@ -69,6 +73,7 @@ const QuickNotesOnboard: React.FC = () => {
             currentIndex === 1 && { marginTop: 70 },
             currentIndex === 2 && { marginTop: 60 },
             currentIndex === 3 && { marginTop: 80 },
+            currentIndex === 4 && { marginTop: 80 },
           ]}
         />
 
@@ -77,7 +82,7 @@ const QuickNotesOnboard: React.FC = () => {
             source={require('../QuickNotesAssets/images/wlcm/btn.png')}
             style={styles.button}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.buttonText}>{buttonLavel[currentIndex]}</Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>

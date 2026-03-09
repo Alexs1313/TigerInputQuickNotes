@@ -4,8 +4,8 @@ import type { ImageSourcePropType } from 'react-native';
 import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 
 const BACKGROUNDS: Record<string, ImageSourcePropType> = {
-  bg: require('../QuickNotesAssets/images/bg.png'),
-  bg2: require('../QuickNotesAssets/images/secbg.png'),
+  bg: require('../QuickNotesAssets/images/secbg.png'),
+  bg2: require('../QuickNotesAssets/images/bg.png'),
 };
 
 const QuickNotesLayout: React.FC<{ children: React.ReactNode }> = ({

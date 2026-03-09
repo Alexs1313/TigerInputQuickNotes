@@ -10,6 +10,8 @@ import QuickNotesMarkNow from '../QuickNotesvws/QuickNotesMarkNow';
 import QuickNotesOnboard from '../QuickNotesvws/QuickNotesOnboard';
 import QuickNotesSettings from '../QuickNotesvws/QuickNotesSettings';
 import QuickNotesNumbers from '../QuickNotesvws/QuickNotesNumbers';
+import QuickNotesStories from '../QuickNotesvws/QuickNotesStories';
+import QuickNotesStoryDetails from '../QuickNotesvws/QuickNotesStoryDetails';
 
 export type QuickNotesRoutesList = {
   QuickNotesLoader: undefined;
@@ -21,6 +23,8 @@ export type QuickNotesRoutesList = {
   QuickNotesHistory: undefined;
   QuickNotesSettings: undefined;
   QuickNotesAwards: undefined;
+  QuickNotesStories: undefined;
+  QuickNotesStoryDetails: { story: any };
 };
 
 const StackRoute = createStackNavigator<QuickNotesRoutesList>();
@@ -58,6 +62,14 @@ const QuickNotesStack: React.FC = () => {
         component={QuickNotesSettings}
       />
       <StackRoute.Screen name="QuickNotesAwards" component={QuickNotesAwards} />
+      <StackRoute.Screen
+        name="QuickNotesStories"
+        component={QuickNotesStories}
+      />
+      <StackRoute.Screen
+        name="QuickNotesStoryDetails"
+        component={QuickNotesStoryDetails}
+      />
     </StackRoute.Navigator>
   );
 };

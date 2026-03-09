@@ -218,11 +218,6 @@ const QuickNotesHome: React.FC = () => {
   return (
     <QuickNotesLayout>
       <View style={styles.container}>
-        <Image
-          source={require('../QuickNotesAssets/images/applogo.png')}
-          style={{ width: 130, height: 130, borderRadius: 22 }}
-        />
-
         <ImageBackground source={tggFrameBox} style={styles.messageBox}>
           <Text style={styles.messageText}>{tip}</Text>
         </ImageBackground>
@@ -272,6 +267,18 @@ const QuickNotesHome: React.FC = () => {
               </ImageBackground>
             </TouchableOpacity>
           ))}
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate('QuickNotesStories')}
+          >
+            <ImageBackground
+              source={require('../QuickNotesAssets/images/wlcm/btn.png')}
+              style={styles.storiesButton}
+            >
+              <Text style={styles.storiesButtonText}>STORIES</Text>
+            </ImageBackground>
+          </TouchableOpacity>
         </View>
       </View>
     </QuickNotesLayout>
@@ -286,9 +293,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     paddingTop: 50,
   },
-  topSpace: {
-    height: 40,
-  },
+
   messageBox: {
     width: 355,
     minHeight: 240,
@@ -298,7 +303,6 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginBottom: 16,
     resizeMode: 'contain',
-    marginTop: 15,
   },
   messageText: {
     fontSize: 20,
@@ -308,13 +312,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   shareButton: {
-    width: 236,
-    height: 74,
+    width: 263,
+    height: 89,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 12,
   },
   shareButtonText: {
+    fontSize: 20,
+    fontFamily: 'Manrope-ExtraBold',
+    color: '#fff',
+    bottom: 4,
+  },
+  storiesButton: {
+    width: 277,
+    height: 94,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  storiesButtonText: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
@@ -326,7 +343,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     paddingHorizontal: 16,
-    top: -10,
   },
   gridItem: {
     alignItems: 'center',

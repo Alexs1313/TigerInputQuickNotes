@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import {
   Image,
   ImageBackground,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -58,14 +57,14 @@ const QuickNotesOnboard: React.FC = () => {
       >
         <ImageBackground
           source={require('../QuickNotesAssets/images/wlcm/onboardframe.png')}
-          style={styles.textboard}
+          style={styles.tgrTextboard}
         >
           <Image source={tggOnboardTxts[currentIndex]} />
         </ImageBackground>
         <Image
           source={tggOnboardImges[currentIndex]}
           style={[
-            styles.onboardImage,
+            styles.tgrOnboardImage,
             currentIndex === 1 && { marginTop: 70 },
             currentIndex === 2 && { marginTop: 60 },
             currentIndex === 3 && { marginTop: 80 },
@@ -75,9 +74,9 @@ const QuickNotesOnboard: React.FC = () => {
         <TouchableOpacity onPress={tggBrtnNext} activeOpacity={0.8}>
           <ImageBackground
             source={require('../QuickNotesAssets/images/wlcm/btn.png')}
-            style={styles.button}
+            style={styles.tgrButton}
           >
-            <Text style={styles.buttonText}>Next</Text>
+            <Text style={styles.tgrButtonText}>Next</Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -86,27 +85,27 @@ const QuickNotesOnboard: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  background: {
+  tgrBackground: {
     flex: 1,
   },
-  textboard: {
+  tgrTextboard: {
     width: 355,
     height: 241,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  onboardImage: {
+  tgrOnboardImage: {
     marginBottom: 38,
   },
-  button: {
+  tgrButton: {
     width: 236,
     height: 74,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  textboardText: {
+  tgrTextboardText: {
     fontSize: 13,
     fontFamily: 'Manrope-Bold',
     color: '#fff',
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
   },
-  buttonText: {
+  tgrButtonText: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',

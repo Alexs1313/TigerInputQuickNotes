@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   messageText: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'PaytoneOne-Regular',
     color: '#45000A',
     textAlign: 'center',

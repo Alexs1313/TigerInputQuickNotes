@@ -39,7 +39,7 @@ const QuickNotesNumbers: React.FC = () => {
   const [value, setValue] = useState('');
 
   const tggOnDigit = useCallback((digit: string) => {
-    setValue(prev => prev + digit);
+    setValue(prev => (prev.length < 8 ? prev + digit : prev));
   }, []);
 
   const svQnNmbrs = useCallback(() => {

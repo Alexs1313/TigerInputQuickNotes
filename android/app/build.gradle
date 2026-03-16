@@ -79,7 +79,7 @@ android {
 
     namespace "com.tigerinputquicknotes"
     defaultConfig {
-        applicationId "com.tigerinputquicknotes"
+        applicationId "com.tigeeleoinputquick"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

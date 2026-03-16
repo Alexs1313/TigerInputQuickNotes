@@ -24,7 +24,7 @@ type NavigationProp = StackNavigationProp<
 
 const tggBgOptions = [
   { id: 'bg', source: require('../QuickNotesAssets/images/secbg.png') },
-  { id: 'bg2', source: require('../QuickNotesAssets/images/bg.png') },
+  { id: 'bg2', source: require('../QuickNotesAssets/images/tgeebg.png') },
 ] as const;
 
 function CustomSwitch({

@@ -1,33 +1,23 @@
+//  Stack
+
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import QuickNotesAddNote from '../QuickNotesvws/QuickNotesAddNote';
-import QuickNotesAwards from '../QuickNotesvws/QuickNotesAwards';
-import QuickNotesHistory from '../QuickNotesvws/QuickNotesHistory';
-import QuickNotesHome from '../QuickNotesvws/QuickNotesHome';
-import QuickNotesLoader from '../QuickNotesvws/QuickNotesLoader';
-import QuickNotesMarkNow from '../QuickNotesvws/QuickNotesMarkNow';
+import QuickNotesAddNote from '../inputquiqqksvws/QuickNotesAddNote';
+import QuickNotesAwards from '../inputquiqqksvws/QuickNotesAwards';
+import QuickNotesHistory from '../inputquiqqksvws/QuickNotesHistory';
+import QuickNotesHome from '../inputquiqqksvws/QuickNotesHome';
 
-import QuickNotesOnboard from '../QuickNotesvws/QuickNotesOnboard';
-import QuickNotesSettings from '../QuickNotesvws/QuickNotesSettings';
-import QuickNotesNumbers from '../QuickNotesvws/QuickNotesNumbers';
-import QuickNotesStories from '../QuickNotesvws/QuickNotesStories';
-import QuickNotesStoryDetails from '../QuickNotesvws/QuickNotesStoryDetails';
+import QuickNotesLoader from '../inputquiqqksvws/QuickNotesLoader';
 
-export type QuickNotesRoutesList = {
-  QuickNotesLoader: undefined;
-  QuickNotesOnboard: undefined;
-  QuickNotesHome: undefined;
-  QuickNotesAddNote: undefined;
-  QuickNotesMarkNow: undefined;
-  QuickNotesNumbers: undefined;
-  QuickNotesHistory: undefined;
-  QuickNotesSettings: undefined;
-  QuickNotesAwards: undefined;
-  QuickNotesStories: undefined;
-  QuickNotesStoryDetails: { story: any };
-};
+import QuickNotesMarkNow from '../inputquiqqksvws/QuickNotesMarkNow';
 
-const StackRoute = createStackNavigator<QuickNotesRoutesList>();
+import QuickNotesOnboard from '../inputquiqqksvws/QuickNotesOnboard';
+import QuickNotesSettings from '../inputquiqqksvws/QuickNotesSettings';
+import QuickNotesNumbers from '../inputquiqqksvws/QuickNotesNumbers';
+import QuickNotesStories from '../inputquiqqksvws/QuickNotesStories';
+import QuickNotesStoryDetails from '../inputquiqqksvws/QuickNotesStoryDetails';
+
+const StackRoute = createStackNavigator();
 
 const QuickNotesStack: React.FC = () => {
   return (

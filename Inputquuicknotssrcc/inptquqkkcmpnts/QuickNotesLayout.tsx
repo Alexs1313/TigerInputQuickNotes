@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackground, ScrollView } from 'react-native';
 import type { ImageSourcePropType } from 'react-native';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
 
 const BACKGROUNDS: Record<string, ImageSourcePropType> = {
   bg: require('../QuickNotesAssets/images/secbg.png'),

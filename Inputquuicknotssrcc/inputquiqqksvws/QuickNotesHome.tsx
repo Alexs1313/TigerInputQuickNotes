@@ -11,11 +11,11 @@ import {
 } from 'react-native';
 import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
 import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Sound from 'react-native-sound';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
 
 type NavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
@@ -197,10 +197,12 @@ const QuickNotesHome: React.FC = () => {
   const loadQuickNotesBgMusic = async () => {
     try {
       const quickNotesMusicValue = await AsyncStorage.getItem('bgMusicIsOn');
-      const isQuickNotesMusicOn = JSON.parse(quickNotesMusicValue ?? 'true');
-      setQuickNotesSoundEnabled(!!isQuickNotesMusicOn);
+      if (quickNotesMusicValue !== null) {
+        const isQuickNotesMusicOn = JSON.parse(quickNotesMusicValue);
+        setQuickNotesSoundEnabled(isQuickNotesMusicOn);
+      }
     } catch (error) {
-      console.error('Error =>', error);
+      console.error('Error loading settings =>', error);
     }
   };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import QuickNotesStack from './TigerInputQuickNotes/[Notesrttnvgts]/QuickNotesStack';
-import { StoreProvider } from './TigerInputQuickNotes/QuickNotessttrg/quickNotesCntxt';
+import QuickNotesStack from './Inputquuicknotssrcc/[Notesrttnvgts]/QuickNotesStack';
+import { StoreProvider } from './Inputquuicknotssrcc/inptquiqqssttrg/quickNotesCntxt';
 
-const App: React.FC = () => {
+const Sourrce: React.FC = () => {
   return (
     <NavigationContainer>
       <StoreProvider>
@@ -13,4 +13,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Sourrce;

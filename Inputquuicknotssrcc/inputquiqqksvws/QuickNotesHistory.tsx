@@ -1,8 +1,19 @@
+// History
+
+import {
+  useQuickNotesStore,
+  type MarkItem,
+  type SavedNumberItem,
+  type SavedNoteItem,
+} from '../inptquiqqssttrg/quickNotesCntxt';
+
+import LinearGradient from 'react-native-linear-gradient';
+
 import { useNavigation } from '@react-navigation/native';
+
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   FlatList,
-  Image,
   ImageBackground,
   StyleSheet,
   Text,
@@ -10,18 +21,13 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-import {
-  useQuickNotesStore,
-  type MarkItem,
-  type SavedNumberItem,
-  type SavedNoteItem,
-} from '../QuickNotessttrg/quickNotesCntxt';
-import LinearGradient from 'react-native-linear-gradient';
 
-type NavigationProp = StackNavigationProp<
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesHistory'
 >;
@@ -37,71 +43,66 @@ function formatDateFromTimestamp(ts: number): string {
 }
 
 const QuickNotesHistory: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
   const { savedNumbers, savedNotes, marks } = useQuickNotesStore();
-  const [activeTab, setActiveTab] = useState<TabKey>('numbers');
+  const [quickInputActiveTab, setQuickInputActiveTab] =
+    useState<TabKey>('numbers');
 
-  const tggTabs: { key: TabKey; label: string }[] = [
+  const quickInputTabs: { key: TabKey; label: string }[] = [
     { key: 'numbers', label: 'NUMBERS' },
     { key: 'text', label: 'TEXT' },
     { key: 'mark', label: 'MARK' },
   ];
 
-  const tggListDdt = useMemo(() => {
-    if (activeTab === 'numbers') {
+  const quickInputListData = useMemo(() => {
+    if (quickInputActiveTab === 'numbers') {
       return [...savedNumbers].reverse();
     }
-    if (activeTab === 'text') {
+    if (quickInputActiveTab === 'text') {
       return [...savedNotes].reverse();
     }
     return [...marks].reverse();
-  }, [activeTab, savedNumbers, savedNotes, marks]);
+  }, [quickInputActiveTab, savedNumbers, savedNotes, marks]);
 
   const renderCard = useCallback(
     ({ item }: { item: SavedNumberItem | SavedNoteItem | MarkItem }) => {
-      if (activeTab === 'numbers') {
+      if (quickInputActiveTab === 'numbers') {
         const n = item as SavedNumberItem;
         return (
           <ImageBackground
             source={require('../QuickNotesAssets/images/smboard.png')}
-            style={styles.cardBackground}
+            style={styles.quickInputCardBackground}
           >
-            <View
-              style={{
-                padding: 30,
-                alignItems: 'center',
-              }}
-            >
-              <Text style={styles.cardDate}>{n.date}</Text>
-              <Text style={styles.cardContent}>{n.value}</Text>
+            <View style={{ padding: 30, alignItems: 'center' }}>
+              <Text style={styles.quickInputCardDate}>{n.date}</Text>
+              <Text style={styles.quickInputCardContent}>{n.value}</Text>
             </View>
           </ImageBackground>
         );
       }
-      if (activeTab === 'text') {
+
+      if (quickInputActiveTab === 'text') {
         const n = item as SavedNoteItem;
         return (
           <LinearGradient
             colors={['#F74408', '#DF1503']}
-            style={styles.gradientBlock}
+            style={styles.quickInputGradientBlock}
           >
-            <View
-              style={{
-                padding: 25,
-                justifyContent: 'center',
-              }}
-            >
-              <Text style={[styles.cardDate, { color: '#fff' }]}>{n.date}</Text>
-              <Text style={styles.cardContentText}>{n.text}</Text>
+            <View style={{ padding: 25, justifyContent: 'center' }}>
+              <Text style={[styles.quickInputCardDate, { color: '#fff' }]}>
+                {n.date}
+              </Text>
+              <Text style={styles.quickInputCardContentText}>{n.text}</Text>
             </View>
           </LinearGradient>
         );
       }
+
       const m = item as MarkItem;
       return (
         <ImageBackground
           source={require('../QuickNotesAssets/images/smboard.png')}
-          style={styles.cardBackground}
+          style={styles.quickInputCardBackground}
         >
           <View
             style={{
@@ -110,15 +111,15 @@ const QuickNotesHistory: React.FC = () => {
               justifyContent: 'center',
             }}
           >
-            <Text style={styles.cardDate}>
+            <Text style={styles.quickInputCardDate}>
               {formatDateFromTimestamp(m.timestamp)}
             </Text>
-            <Text style={styles.cardContent}>{m.timeString}</Text>
+            <Text style={styles.quickInputCardContent}>{m.timeString}</Text>
           </View>
         </ImageBackground>
       );
     },
-    [activeTab],
+    [quickInputActiveTab],
   );
 
   const keyExtractor = useCallback(
@@ -128,41 +129,42 @@ const QuickNotesHistory: React.FC = () => {
 
   return (
     <QuickNotesLayout>
-      <View style={styles.container}>
+      <View style={styles.quickInputContainer}>
         <QuickNotesScreenHeader
-          onBack={() => navigation.goBack()}
+          onBack={() => quickInputNav.goBack()}
           titleImage={require('../QuickNotesAssets/images/historyttl.png')}
         />
-        <View style={styles.tabsRow}>
-          {tggTabs.map(({ key, label }) => (
+
+        <View style={styles.quickInputTabsRow}>
+          {quickInputTabs.map(({ key, label }) => (
             <LinearGradient
               key={key}
               colors={['#F74408', '#DF1503']}
               style={[
-                styles.gradientTab,
-                { opacity: activeTab === key ? 1 : 0.8 },
+                styles.quickInputGradientTab,
+                { opacity: quickInputActiveTab === key ? 1 : 0.8 },
               ]}
             >
               <TouchableOpacity
-                style={[styles.tab]}
-                onPress={() => setActiveTab(key)}
+                style={styles.quickInputTab}
+                onPress={() => setQuickInputActiveTab(key)}
                 activeOpacity={0.8}
               >
-                <Text style={styles.tabText}>{label}</Text>
+                <Text style={styles.quickInputTabText}>{label}</Text>
               </TouchableOpacity>
             </LinearGradient>
           ))}
         </View>
 
         <FlatList
-          data={tggListDdt}
+          data={quickInputListData}
           scrollEnabled={false}
           renderItem={renderCard}
           keyExtractor={keyExtractor}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={styles.quickInputListContent}
           ListEmptyComponent={
-            <View style={styles.emptyWrap}>
-              <Text style={styles.emptyText}>No entries yet</Text>
+            <View style={styles.quickInputEmptyWrap}>
+              <Text style={styles.quickInputEmptyText}>No entries yet</Text>
             </View>
           }
         />
@@ -172,10 +174,9 @@ const QuickNotesHistory: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
+  quickInputContainer: { flex: 1 },
+
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -183,49 +184,52 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 10,
   },
-  gradientTab: {
+
+  quickInputGradientTab: {
     flex: 1,
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 30,
     borderRadius: 22,
   },
-  gradientBlock: {
+
+  quickInputGradientBlock: {
     width: '90%',
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 30,
     borderRadius: 22,
   },
-  cardBackground: {
+
+  quickInputCardBackground: {
     width: 262,
     height: 180,
     alignSelf: 'center',
     justifyContent: 'center',
     marginTop: 30,
   },
-  backButton: {
-    padding: 4,
-  },
-  backButtonImage: {
-    resizeMode: 'contain',
-  },
-  title: {
+
+  quickInputBackButton: { padding: 4 },
+
+  quickInputBackButtonImage: { resizeMode: 'contain' },
+
+  quickInputTitle: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  headerSpacer: {
-    width: 50,
-  },
-  tabsRow: {
+
+  quickInputHeaderSpacer: { width: 50 },
+
+  quickInputTabsRow: {
     flexDirection: 'row',
     paddingHorizontal: 20,
     marginBottom: 20,
     gap: 10,
   },
-  tab: {
+
+  quickInputTab: {
     paddingVertical: 12,
     borderRadius: 16,
     minHeight: 60,
@@ -233,17 +237,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 24,
   },
-  tabText: {
+
+  quickInputTabText: {
     fontSize: 14,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  listContent: {
+
+  quickInputListContent: {
     paddingHorizontal: 24,
     paddingBottom: 24,
   },
-  card: {
+
+  quickInputCard: {
     backgroundColor: '#DF1503',
     borderRadius: 22,
     borderWidth: 1,
@@ -252,27 +259,32 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginBottom: 12,
   },
-  cardDate: {
+
+  quickInputCardDate: {
     fontSize: 14,
     fontFamily: 'PaytoneOne-Regular',
     color: '#45000A',
     marginBottom: 8,
   },
-  cardContent: {
+
+  quickInputCardContent: {
     fontSize: 32,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
   },
-  cardContentText: {
+
+  quickInputCardContentText: {
     fontSize: 14,
     fontFamily: 'Manrope-Regular',
     color: '#fff',
   },
-  emptyWrap: {
+
+  quickInputEmptyWrap: {
     paddingVertical: 40,
     alignItems: 'center',
   },
-  emptyText: {
+
+  quickInputEmptyText: {
     fontSize: 16,
     fontFamily: 'Manrope-Bold',
     color: 'rgba(255,255,255,0.7)',

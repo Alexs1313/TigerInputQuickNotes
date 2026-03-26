@@ -1,4 +1,15 @@
+// Mark Now
+
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
+import LinearGradient from 'react-native-linear-gradient';
+
 import { useNavigation } from '@react-navigation/native';
+
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   Image,
@@ -11,18 +22,13 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
-import LinearGradient from 'react-native-linear-gradient';
 
-type NavigationProp = StackNavigationProp<
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesMarkNow'
 >;
 
-const tggFrameBtn = require('../QuickNotesAssets/images/wlcm/btn.png');
+const quickInputFrameBtn = require('../QuickNotesAssets/images/wlcm/btn.png');
 
 function frmmtTgtime(date: Date): string {
   const hhour = date.getHours().toString().padStart(2, '0');
@@ -32,68 +38,76 @@ function frmmtTgtime(date: Date): string {
 }
 
 const QuickNotesMarkNow: React.FC = () => {
-  const tggNav = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
   const { addMark, marks } = useQuickNotesStore();
-  const [now, setNow] = useState(() => frmmtTgtime(new Date()));
-  const [success, setSuccess] = useState(false);
-  const [lastSavedTime, setLastSavedTime] = useState<string | null>(null);
+
+  const [quickInputNow, setQuickInputNow] = useState(() =>
+    frmmtTgtime(new Date()),
+  );
+  const [quickInputSuccess, setQuickInputSuccess] = useState(false);
+  const [quickInputLastSavedTime, setQuickInputLastSavedTime] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
-    const tggId = setInterval(() => {
-      setNow(frmmtTgtime(new Date()));
+    const quickInputInterval = setInterval(() => {
+      setQuickInputNow(frmmtTgtime(new Date()));
     }, 1000);
 
-    return () => clearInterval(tggId);
+    return () => clearInterval(quickInputInterval);
   }, []);
 
-  const handleMark = useCallback(() => {
+  const quickInputHandleMark = useCallback(() => {
     const timeStr = frmmtTgtime(new Date());
 
     addMark(timeStr);
-
-    setLastSavedTime(timeStr);
-
-    setSuccess(true);
+    setQuickInputLastSavedTime(timeStr);
+    setQuickInputSuccess(true);
   }, [addMark]);
 
-  const shreQnMark = useCallback(async () => {
-    const tggTxt =
-      lastSavedTime ??
-      (marks.length > 0 ? marks[marks.length - 1].timeString : now);
+  const quickInputShareMark = useCallback(async () => {
+    const text =
+      quickInputLastSavedTime ??
+      (marks.length > 0 ? marks[marks.length - 1].timeString : quickInputNow);
 
     try {
       await Share.share({
-        message: `Mark now: ${tggTxt}`,
+        message: `Mark now: ${text}`,
         title: 'Mark now',
       });
     } catch {
       console.error('Error => share failed');
     }
-  }, [lastSavedTime, marks, now]);
+  }, [quickInputLastSavedTime, marks, quickInputNow]);
 
-  if (success) {
+  if (quickInputSuccess) {
     return (
       <ImageBackground
         source={require('../QuickNotesAssets/images/darkBg.png')}
-        style={styles.darkScreen}
+        style={styles.quickInputDarkScreen}
       >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}
         >
           <QuickNotesScreenHeader
-            onBack={() => tggNav.goBack()}
+            onBack={() => quickInputNav.goBack()}
             titleImage={require('../QuickNotesAssets/images/marktitle.png')}
           />
-          <View style={styles.successContent}>
-            <Text style={styles.successText}>Successfully!</Text>
+
+          <View style={styles.quickInputSuccessContent}>
+            <Text style={styles.quickInputSuccessText}>Successfully!</Text>
+
             <Image
               source={require('../QuickNotesAssets/images/loadertiger.png')}
             />
 
-            <TouchableOpacity onPress={shreQnMark} activeOpacity={0.8}>
-              <ImageBackground source={tggFrameBtn} style={styles.shareButton}>
-                <Text style={styles.shareButtonText}>SHARE</Text>
+            <TouchableOpacity onPress={quickInputShareMark} activeOpacity={0.8}>
+              <ImageBackground
+                source={quickInputFrameBtn}
+                style={styles.quickInputShareButton}
+              >
+                <Text style={styles.quickInputShareButtonText}>SHARE</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -108,15 +122,16 @@ const QuickNotesMarkNow: React.FC = () => {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.container}>
+        <View style={styles.quickInputContainer}>
           <QuickNotesScreenHeader
-            onBack={() => tggNav.goBack()}
+            onBack={() => quickInputNav.goBack()}
             titleImage={require('../QuickNotesAssets/images/marktitle.png')}
           />
-          <View style={styles.content}>
+
+          <View style={styles.quickInputContent}>
             <LinearGradient
               colors={['#DF1503', '#DF1503']}
-              style={styles.timeBox}
+              style={styles.quickInputTimeBox}
             >
               <View
                 style={{
@@ -125,13 +140,20 @@ const QuickNotesMarkNow: React.FC = () => {
                   alignItems: 'center',
                 }}
               >
-                <Text style={styles.timeLabel}>Now:</Text>
-                <Text style={styles.timeValue}>{now}</Text>
+                <Text style={styles.quickInputTimeLabel}>Now:</Text>
+                <Text style={styles.quickInputTimeValue}>{quickInputNow}</Text>
               </View>
             </LinearGradient>
-            <TouchableOpacity onPress={handleMark} activeOpacity={0.8}>
-              <ImageBackground source={tggFrameBtn} style={styles.markButton}>
-                <Text style={styles.markButtonText}>MARK</Text>
+
+            <TouchableOpacity
+              onPress={quickInputHandleMark}
+              activeOpacity={0.8}
+            >
+              <ImageBackground
+                source={quickInputFrameBtn}
+                style={styles.quickInputMarkButton}
+              >
+                <Text style={styles.quickInputMarkButtonText}>MARK</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -142,13 +164,11 @@ const QuickNotesMarkNow: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  darkScreen: {
-    flex: 1,
-  },
-  header: {
+  quickInputContainer: { flex: 1 },
+
+  quickInputDarkScreen: { flex: 1 },
+
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -156,77 +176,85 @@ const styles = StyleSheet.create({
     paddingTop: 80,
     paddingBottom: 16,
   },
-  backButton: {
-    padding: 4,
-  },
-  backButtonImage: {
-    resizeMode: 'contain',
-  },
-  title: {
+
+  quickInputBackButton: { padding: 4 },
+
+  quickInputBackButtonImage: { resizeMode: 'contain' },
+
+  quickInputTitle: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  headerSpacer: {
-    width: 50,
-  },
-  content: {
+
+  quickInputHeaderSpacer: { width: 50 },
+
+  quickInputContent: {
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingTop: 24,
   },
-  timeBox: {
+
+  quickInputTimeBox: {
     width: '85%',
     backgroundColor: '#DF1503',
     borderRadius: 22,
     marginBottom: 32,
   },
-  timeLabel: {
+
+  quickInputTimeLabel: {
     fontSize: 15,
     fontFamily: 'Manrope-Regular',
     color: '#fff',
     marginBottom: 8,
   },
-  timeValue: {
+
+  quickInputTimeValue: {
     fontSize: 32,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
   },
-  markButton: {
+
+  quickInputMarkButton: {
     width: 263,
     height: 89,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
   },
-  markButtonText: {
+
+  quickInputMarkButtonText: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
     bottom: 4,
   },
-  successContent: {
+
+  quickInputSuccessContent: {
     flex: 1,
     alignItems: 'center',
     marginTop: 40,
   },
-  successText: {
+
+  quickInputSuccessText: {
     fontSize: 28,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     marginBottom: 40,
   },
-  shareButton: {
+
+  quickInputShareButton: {
     width: 236,
     height: 74,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 80,
   },
-  shareButtonText: {
+
+  quickInputShareButtonText: {
     fontSize: 18,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',

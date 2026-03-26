@@ -1,4 +1,11 @@
+// Add Note
+
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
+
 import { useNavigation } from '@react-navigation/native';
+
 import React, { useCallback, useState } from 'react';
 import {
   Image,
@@ -12,25 +19,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
 
-// format date to dd.mm.yyyy
+import type { StackNavigationProp } from '@react-navigation/stack';
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
 
 function frmmtTgdate(date: Date): string {
   const dday = date.getDate().toString().padStart(2, '0');
-
   const mmonth = (date.getMonth() + 1).toString().padStart(2, '0');
-
   const yyear = date.getFullYear();
-
   return `${dday}.${mmonth}.${yyear}`;
 }
 
-type NavigationProp = StackNavigationProp<
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesAddNote'
 >;
@@ -39,57 +40,68 @@ const FRAME_BTN = require('../QuickNotesAssets/images/wlcm/btn.png');
 const DARK_BG = '#45000ADB';
 
 const QuickNotesAddNote: React.FC = () => {
-  const navigation = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
   const { addSavedNote } = useQuickNotesStore();
-  const [showForm, setShowForm] = useState(false);
-  const [text, setText] = useState('');
 
-  const addNewTgrnote = () => {
-    setShowForm(true);
+  const [quickInputShowForm, setQuickInputShowForm] = useState(false);
+  const [quickInputText, setQuickInputText] = useState('');
+
+  const quickInputAddNewNote = () => {
+    setQuickInputShowForm(true);
   };
 
-  const svTgrNot = useCallback(() => {
-    const trmm = text.trim();
+  const quickInputSaveNote = useCallback(() => {
+    const trimmed = quickInputText.trim();
 
-    if (trmm) {
-      addSavedNote(trmm, frmmtTgdate(new Date()));
+    if (trimmed) {
+      addSavedNote(trimmed, frmmtTgdate(new Date()));
     }
 
-    navigation.goBack();
-  }, [text, addSavedNote]);
+    quickInputNav.goBack();
+  }, [quickInputText, addSavedNote]);
 
-  if (!showForm) {
+  if (!quickInputShowForm) {
     return (
       <QuickNotesLayout>
-        <View style={styles.container}>
+        <View style={styles.quickInputContainer}>
           <QuickNotesScreenHeader
-            onBack={() => navigation.goBack()}
+            onBack={() => quickInputNav.goBack()}
             titleImage={require('../QuickNotesAssets/images/texttitle.png')}
           />
-          <View style={styles.initialContent}>
+
+          <View style={styles.quickInputInitialContent}>
             <View>
               <ImageBackground
                 source={require('../QuickNotesAssets/images/smboard.png')}
-                style={styles.introBoard}
+                style={styles.quickInputIntroBoard}
               >
                 <View>
-                  <Text style={styles.boardText}>
+                  <Text style={styles.quickInputBoardText}>
                     You can leave a short note here.
                   </Text>
                 </View>
               </ImageBackground>
+
               <Image
                 source={require('../QuickNotesAssets/images/noteimg.png')}
-                style={styles.noteImage}
+                style={styles.quickInputNoteImage}
               />
             </View>
+
             <Image
               source={require('../QuickNotesAssets/images/loadertiger.png')}
-              style={styles.loaderTiger}
+              style={styles.quickInputLoaderTiger}
             />
-            <TouchableOpacity onPress={addNewTgrnote} activeOpacity={0.8}>
-              <ImageBackground source={FRAME_BTN} style={styles.addButton}>
-                <Text style={styles.addButtonText}>ADD NEW NOTE</Text>
+
+            <TouchableOpacity
+              onPress={quickInputAddNewNote}
+              activeOpacity={0.8}
+            >
+              <ImageBackground
+                source={FRAME_BTN}
+                style={styles.quickInputAddButton}
+              >
+                <Text style={styles.quickInputAddButtonText}>ADD NEW NOTE</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -113,28 +125,31 @@ const QuickNotesAddNote: React.FC = () => {
           keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
         >
           <QuickNotesScreenHeader
-            onBack={() => navigation.goBack()}
+            onBack={() => quickInputNav.goBack()}
             titleImage={require('../QuickNotesAssets/images/texttitle.png')}
           />
-          <View style={styles.formContent}>
-            <View style={styles.cardFrame}>
-              <Text style={styles.cardLabel}>ADD NEW NOTE</Text>
+
+          <View style={styles.quickInputFormContent}>
+            <View style={styles.quickInputCardFrame}>
+              <Text style={styles.quickInputCardLabel}>ADD NEW NOTE</Text>
+
               <TextInput
-                style={styles.input}
+                style={styles.quickInputInput}
                 placeholder={'Write text'}
                 placeholderTextColor="rgba(255, 255, 255, 0.7)"
-                value={text}
-                onChangeText={setText}
+                value={quickInputText}
+                onChangeText={setQuickInputText}
                 multiline
                 textAlignVertical="top"
               />
             </View>
-            <TouchableOpacity onPress={svTgrNot} activeOpacity={0.8}>
+
+            <TouchableOpacity onPress={quickInputSaveNote} activeOpacity={0.8}>
               <ImageBackground
                 source={require('../QuickNotesAssets/images/saveBtn.png')}
-                style={styles.saveButton}
+                style={styles.quickInputSaveButton}
               >
-                <Text style={styles.saveButtonText}>SAVE</Text>
+                <Text style={styles.quickInputSaveButtonText}>SAVE</Text>
               </ImageBackground>
             </TouchableOpacity>
           </View>
@@ -145,15 +160,17 @@ const QuickNotesAddNote: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  quickInputContainer: {
     flex: 1,
     paddingBottom: 20,
   },
-  darkScreen: {
+
+  quickInputDarkScreen: {
     flex: 1,
     backgroundColor: DARK_BG,
   },
-  header: {
+
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -161,42 +178,50 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
   },
-  backButton: {
+
+  quickInputBackButton: {
     padding: 4,
   },
-  backButtonText: {
+
+  quickInputBackButtonText: {
     fontSize: 28,
     color: '#fff',
     fontWeight: 'bold',
   },
-  title: {
+
+  quickInputTitle: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  headerSpacer: {
+
+  quickInputHeaderSpacer: {
     width: 50,
   },
-  initialContent: {
+
+  quickInputInitialContent: {
     flex: 1,
     alignItems: 'center',
   },
-  boardText: {
+
+  quickInputBoardText: {
     fontSize: 15,
     fontFamily: 'PaytoneOne-Regular',
     color: '#45000A',
     textAlign: 'center',
     paddingHorizontal: 35,
   },
-  introBoard: {
+
+  quickInputIntroBoard: {
     width: 262,
     height: 180,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  noteImage: {
+
+  quickInputNoteImage: {
     width: 100,
     height: 100,
     resizeMode: 'contain',
@@ -204,7 +229,8 @@ const styles = StyleSheet.create({
     bottom: -45,
     alignSelf: 'center',
   },
-  loaderTiger: {
+
+  quickInputLoaderTiger: {
     width: 215,
     height: 264,
     resizeMode: 'contain',
@@ -212,26 +238,30 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 40,
   },
-  addButton: {
+
+  quickInputAddButton: {
     width: 236,
     height: 74,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  addButtonText: {
+
+  quickInputAddButtonText: {
     fontSize: 18,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
     bottom: 4,
   },
-  formContent: {
+
+  quickInputFormContent: {
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 14,
     paddingTop: 8,
   },
-  cardFrame: {
+
+  quickInputCardFrame: {
     width: '95%',
     minHeight: 280,
     paddingHorizontal: 20,
@@ -243,14 +273,16 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     borderColor: '#FABF1D',
   },
-  cardLabel: {
+
+  quickInputCardLabel: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
     marginBottom: 20,
   },
-  input: {
+
+  quickInputInput: {
     minHeight: 270,
     fontSize: 14,
     fontFamily: 'Manrope-Regular',
@@ -259,7 +291,8 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     padding: 27,
   },
-  saveButton: {
+
+  quickInputSaveButton: {
     width: 140,
     height: 66,
     justifyContent: 'center',
@@ -267,7 +300,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 30,
   },
-  saveButtonText: {
+
+  quickInputSaveButtonText: {
     fontSize: 18,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',

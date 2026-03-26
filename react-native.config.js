@@ -3,5 +3,5 @@ module.exports = {
     ios: {},
     android: {},
   },
-  assets: ['./TigerInputQuickNotes/QuickNotesAssets/fonts/'],
+  assets: ['./Inputquuicknotssrcc/QuickNotesAssets/fonts/'],
 };

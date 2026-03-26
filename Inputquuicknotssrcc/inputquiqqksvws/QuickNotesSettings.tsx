@@ -1,3 +1,11 @@
+// Settings
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
+
+import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback } from 'react';
 import {
@@ -10,19 +18,16 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
-import LinearGradient from 'react-native-linear-gradient';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type NavigationProp = StackNavigationProp<
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
+
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesSettings'
 >;
 
-const tggBgOptions = [
+const quickInputBgOptions = [
   { id: 'bg', source: require('../QuickNotesAssets/images/secbg.png') },
   { id: 'bg2', source: require('../QuickNotesAssets/images/bg.png') },
 ] as const;
@@ -34,33 +39,38 @@ function CustomSwitch({
   value: boolean;
   onValueChange: (v: boolean) => void;
 }) {
-  const anim = React.useRef(new Animated.Value(value ? 1 : 0)).current;
+  const quickInputAnim = React.useRef(
+    new Animated.Value(value ? 1 : 0),
+  ).current;
 
   React.useEffect(() => {
-    Animated.timing(anim, {
+    Animated.timing(quickInputAnim, {
       toValue: value ? 1 : 0,
       duration: 200,
       useNativeDriver: true,
     }).start();
-  }, [value, anim]);
+  }, [value, quickInputAnim]);
 
-  const translateX = anim.interpolate({
+  const quickInputTranslateX = quickInputAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 32],
   });
 
-  const thumbColor = value ? '#90EE90' : '#FFA07A';
+  const quickInputThumbColor = value ? '#90EE90' : '#FFA07A';
 
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => onValueChange(!value)}
-      style={styles.switchTrack}
+      style={styles.quickInputSwitchTrack}
     >
       <Animated.View
         style={[
-          styles.switchThumb,
-          { backgroundColor: thumbColor, transform: [{ translateX }] },
+          styles.quickInputSwitchThumb,
+          {
+            backgroundColor: quickInputThumbColor,
+            transform: [{ translateX: quickInputTranslateX }],
+          },
         ]}
       />
     </TouchableOpacity>
@@ -68,7 +78,8 @@ function CustomSwitch({
 }
 
 const QuickNotesSettings: React.FC = () => {
-  const tggNav = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
+
   const {
     quickNotesSoundEnabled,
     setQuickNotesSoundEnabled,
@@ -76,7 +87,7 @@ const QuickNotesSettings: React.FC = () => {
     setBackgroundId,
   } = useQuickNotesStore();
 
-  const tggTglSound = useCallback(
+  const quickInputToggleSound = useCallback(
     async (selectedValue: boolean): Promise<void> => {
       try {
         await AsyncStorage.setItem(
@@ -93,22 +104,25 @@ const QuickNotesSettings: React.FC = () => {
 
   return (
     <QuickNotesLayout>
-      <View style={styles.container}>
+      <View style={styles.quickInputContainer}>
         <QuickNotesScreenHeader
-          onBack={() => tggNav.goBack()}
+          onBack={() => quickInputNav.goBack()}
           titleImage={require('../QuickNotesAssets/images/settttl.png')}
         />
+
         {Platform.OS === 'ios' && (
           <LinearGradient
             colors={['#F74408', '#DF1503']}
-            style={styles.gradientSection}
+            style={styles.quickInputGradientSection}
           >
-            <View style={styles.section}>
-              <View style={styles.sectionRow}>
-                <Text style={styles.sectionLabel}>BACKGROUND MELODY:</Text>
+            <View style={styles.quickInputSection}>
+              <View style={styles.quickInputSectionRow}>
+                <Text style={styles.quickInputSectionLabel}>
+                  BACKGROUND MELODY:
+                </Text>
                 <CustomSwitch
                   value={quickNotesSoundEnabled}
-                  onValueChange={value => tggTglSound(value)}
+                  onValueChange={value => quickInputToggleSound(value)}
                 />
               </View>
             </View>
@@ -117,35 +131,41 @@ const QuickNotesSettings: React.FC = () => {
 
         <LinearGradient
           colors={['#F74408', '#DF1503']}
-          style={styles.gradientSection}
+          style={styles.quickInputGradientSection}
         >
-          <View style={styles.section}>
-            <Text style={[styles.sectionLabel, { marginBottom: 24 }]}>
+          <View style={styles.quickInputSection}>
+            <Text style={[styles.quickInputSectionLabel, { marginBottom: 24 }]}>
               BACKGROUNDS:
             </Text>
-            <View style={styles.backgroundsRow}>
-              {tggBgOptions.map(({ id, source }) => {
+
+            <View style={styles.quickInputBackgroundsRow}>
+              {quickInputBgOptions.map(({ id, source }) => {
                 const selected = backgroundId === id;
+
                 return (
                   <TouchableOpacity
                     key={id}
-                    style={styles.backgroundOption}
+                    style={styles.quickInputBackgroundOption}
                     onPress={() => setBackgroundId(id)}
                     activeOpacity={0.8}
                   >
                     <Image
                       source={source}
-                      style={styles.backgroundPreview}
+                      style={styles.quickInputBackgroundPreview}
                       resizeMode="cover"
                     />
+
                     <View
                       style={[
-                        styles.checkmark,
-                        { backgroundColor: selected ? '#32CD32' : '#fff' },
+                        styles.quickInputCheckmark,
+                        {
+                          backgroundColor: selected ? '#32CD32' : '#fff',
+                        },
                       ]}
-                    ></View>
+                    />
+
                     {selected && (
-                      <View style={styles.checkmark}>
+                      <View style={styles.quickInputCheckmark}>
                         <Image
                           source={require('../QuickNotesAssets/images/selected.png')}
                         />
@@ -163,10 +183,11 @@ const QuickNotesSettings: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  quickInputContainer: {
     flex: 1,
   },
-  header: {
+
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -174,47 +195,57 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
   },
-  backButton: {
+
+  quickInputBackButton: {
     padding: 4,
   },
-  backButtonImage: {
+
+  quickInputBackButtonImage: {
     resizeMode: 'contain',
   },
-  gradientSection: {
+
+  quickInputGradientSection: {
     width: '90%',
     alignSelf: 'center',
     borderRadius: 22,
     marginBottom: 16,
   },
-  title: {
+
+  quickInputTitle: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  headerSpacer: {
+
+  quickInputHeaderSpacer: {
     width: 50,
   },
-  section: {
+
+  quickInputSection: {
     paddingHorizontal: 5,
     paddingVertical: 26,
     marginHorizontal: 24,
   },
-  sectionLabel: {
+
+  quickInputSectionLabel: {
     fontSize: 16,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  sectionRow: {
+
+  quickInputSectionRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  sectionFill: {
+
+  quickInputSectionFill: {
     flex: 1,
   },
-  switchTrack: {
+
+  quickInputSwitchTrack: {
     width: 64,
     height: 32,
     borderRadius: 16,
@@ -222,7 +253,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 4,
   },
-  switchThumb: {
+
+  quickInputSwitchThumb: {
     width: 24,
     height: 24,
     borderRadius: 8,
@@ -232,21 +264,25 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 2,
   },
-  backgroundsRow: {
+
+  quickInputBackgroundsRow: {
     flexDirection: 'column',
     gap: 24,
   },
-  backgroundOption: {
+
+  quickInputBackgroundOption: {
     width: '100%',
     height: 160,
     borderRadius: 22,
     overflow: 'hidden',
   },
-  backgroundPreview: {
+
+  quickInputBackgroundPreview: {
     width: '100%',
     height: '100%',
   },
-  checkmark: {
+
+  quickInputCheckmark: {
     position: 'absolute',
     bottom: 14,
     right: 16,
@@ -257,7 +293,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkmarkText: {
+
+  quickInputCheckmarkText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',

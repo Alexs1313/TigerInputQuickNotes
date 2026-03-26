@@ -1,34 +1,40 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
+// Awards
+
 import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
 import LinearGradient from 'react-native-linear-gradient';
 
-type NavigationProp = StackNavigationProp<
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+import type { StackNavigationProp } from '@react-navigation/stack';
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
+
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesAwards'
 >;
 
 const QuickNotesAwards: React.FC = () => {
-  const tggNav = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
 
   return (
     <QuickNotesLayout>
-      <View style={styles.container}>
+      <View style={styles.quickInputContainer}>
         <QuickNotesScreenHeader
-          onBack={() => tggNav.goBack()}
+          onBack={() => quickInputNav.goBack()}
           titleImage={require('../QuickNotesAssets/images/awardsttl.png')}
         />
-        <View style={styles.content}>
+        <View style={styles.quickInputContent}>
           <LinearGradient
             colors={['#F74408', '#DF1503']}
-            style={styles.gradientSection}
+            style={styles.quickInputGradientSection}
           >
-            <View style={styles.emptyBox}>
-              <Text style={styles.emptyText}>It's empty here for now.</Text>
+            <View style={styles.quickInputEmptyBox}>
+              <Text style={styles.quickInputEmptyText}>
+                It's empty here for now.
+              </Text>
             </View>
           </LinearGradient>
         </View>
@@ -38,10 +44,10 @@ const QuickNotesAwards: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  quickInputContainer: {
     flex: 1,
   },
-  header: {
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -49,31 +55,31 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
   },
-  backButtonImage: {
+  quickInputBackButtonImage: {
     resizeMode: 'contain',
   },
-  headerSpacer: {
+  quickInputHeaderSpacer: {
     width: 50,
   },
-  content: {
+  quickInputContent: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 24,
   },
-  gradientSection: {
+  quickInputGradientSection: {
     width: '90%',
     alignSelf: 'center',
     borderRadius: 22,
     marginBottom: 16,
   },
-  emptyBox: {
+  quickInputEmptyBox: {
     paddingVertical: 52,
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  emptyText: {
+  quickInputEmptyText: {
     fontSize: 15,
     fontFamily: 'Manrope-Regular',
     color: '#fff',

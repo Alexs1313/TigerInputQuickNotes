@@ -5,11 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Tigee Leu Input Quick</string>
+	<string>Tigee Leo Input Quick</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.kdlakktigge.gksoa.df</string>
+	<string>com.slasd.notskkf.ttje</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -32,19 +32,19 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Manrope-Medium.ttf</string>
 		<string>Manrope-SemiBold.ttf</string>
+		<string>PaytoneOne-Regular.ttf</string>
 		<string>Manrope-ExtraBold.ttf</string>
 		<string>Manrope-Regular.ttf</string>
 		<string>Manrope-ExtraLight.ttf</string>
 		<string>Manrope-Light.ttf</string>
 		<string>Manrope-Bold.ttf</string>
-		<string>PaytoneOne-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

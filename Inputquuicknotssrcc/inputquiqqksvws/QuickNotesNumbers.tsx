@@ -1,3 +1,13 @@
+// Numbers
+
+import QuickNotesScreenHeader from '../inptquqkkcmpnts/QuickNotesScreenHeader';
+
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
+import { useQuickNotesStore } from '../inptquiqqssttrg/quickNotesCntxt';
+
+import LinearGradient from 'react-native-linear-gradient';
+
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import {
@@ -9,13 +19,9 @@ import {
   View,
 } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import QuickNotesScreenHeader from '../QuickNotescmpnts/QuickNotesScreenHeader';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-import { useQuickNotesStore } from '../QuickNotessttrg/quickNotesCntxt';
-import LinearGradient from 'react-native-linear-gradient';
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
 
-type NavigationProp = StackNavigationProp<
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesNumbers'
 >;
@@ -27,43 +33,44 @@ function frmmtTgdate(date: Date): string {
   return `${dday}.${mmonth}.${yyear}`;
 }
 
-const tggKeypadTop = [
+const quickInputKeypadTop = [
   ['1', '2', '3'],
   ['4', '5', '6'],
   ['7', '8', '9'],
 ];
 
 const QuickNotesNumbers: React.FC = () => {
-  const tggNav = useNavigation<NavigationProp>();
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
   const { addSavedNumber } = useQuickNotesStore();
-  const [value, setValue] = useState('');
+  const [quickInputValue, setQuickInputValue] = useState('');
 
-  const tggOnDigit = useCallback((digit: string) => {
-    setValue(prev => prev + digit);
+  const quickInputOnDigit = useCallback((digit: string) => {
+    setQuickInputValue(prev => prev + digit);
   }, []);
 
-  const svQnNmbrs = useCallback(() => {
-    const trimmed = value.trim();
+  const quickInputSaveNumbers = useCallback(() => {
+    const trimmed = quickInputValue.trim();
     if (trimmed === '') return;
-    const tggDateStr = frmmtTgdate(new Date());
-    addSavedNumber(trimmed, tggDateStr);
-    setValue('');
-  }, [value, addSavedNumber]);
+
+    const dateStr = frmmtTgdate(new Date());
+    addSavedNumber(trimmed, dateStr);
+    setQuickInputValue('');
+  }, [quickInputValue, addSavedNumber]);
 
   return (
     <QuickNotesLayout>
-      <View style={styles.container}>
+      <View style={styles.quickInputContainer}>
         <QuickNotesScreenHeader
-          onBack={() => tggNav.goBack()}
+          onBack={() => quickInputNav.goBack()}
           titleImage={require('../QuickNotesAssets/images/numberstitle.png')}
         />
 
         <ImageBackground
           source={require('../QuickNotesAssets/images/smboard.png')}
-          style={styles.introBoard}
+          style={styles.quickInputIntroBoard}
         >
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={styles.boardText}>
+            <Text style={styles.quickInputBoardText}>
               This is where numbers are stored that you may need later.
             </Text>
             <Image
@@ -74,47 +81,54 @@ const QuickNotesNumbers: React.FC = () => {
 
         <LinearGradient
           colors={['#6A0001', '#8B0202', '#5c1a1a']}
-          style={styles.gradientBlock}
+          style={styles.quickInputGradientBlock}
         >
-          <View style={styles.gradientContent}>
-            <View style={styles.displayWrap}>
-              <View style={styles.display}>
-                <Text style={styles.displayText} numberOfLines={1}>
-                  {value || ''}
+          <View style={styles.quickInputGradientContent}>
+            <View style={styles.quickInputDisplayWrap}>
+              <View style={styles.quickInputDisplay}>
+                <Text style={styles.quickInputDisplayText} numberOfLines={1}>
+                  {quickInputValue || ''}
                 </Text>
               </View>
             </View>
 
-            <View style={styles.keypad}>
-              {tggKeypadTop.map((row, rowIndex) => (
-                <View key={rowIndex} style={styles.keypadRow}>
+            <View style={styles.quickInputKeypad}>
+              {quickInputKeypadTop.map((row, rowIndex) => (
+                <View key={rowIndex} style={styles.quickInputKeypadRow}>
                   {row.map(digit => (
                     <TouchableOpacity
                       key={digit}
-                      style={styles.keypadBtn}
-                      onPress={() => tggOnDigit(digit)}
+                      style={styles.quickInputKeypadBtn}
+                      onPress={() => quickInputOnDigit(digit)}
                       activeOpacity={0.8}
                     >
-                      <Text style={styles.keypadBtnText}>{digit}</Text>
+                      <Text style={styles.quickInputKeypadBtnText}>
+                        {digit}
+                      </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
               ))}
-              <View style={styles.keypadRow}>
+
+              <View style={styles.quickInputKeypadRow}>
                 <TouchableOpacity
-                  style={styles.keypadBtn}
-                  onPress={() => tggOnDigit('0')}
+                  style={styles.quickInputKeypadBtn}
+                  onPress={() => quickInputOnDigit('0')}
                   activeOpacity={0.8}
                 >
-                  <Text style={styles.keypadBtnText}>0</Text>
+                  <Text style={styles.quickInputKeypadBtnText}>0</Text>
                 </TouchableOpacity>
-                {value.trim() !== '' && (
-                  <TouchableOpacity onPress={svQnNmbrs} activeOpacity={0.8}>
+
+                {quickInputValue.trim() !== '' && (
+                  <TouchableOpacity
+                    onPress={quickInputSaveNumbers}
+                    activeOpacity={0.8}
+                  >
                     <ImageBackground
                       source={require('../QuickNotesAssets/images/saveBtn.png')}
-                      style={styles.saveButton}
+                      style={styles.quickInputSaveButton}
                     >
-                      <Text style={styles.saveButtonText}>SAVE</Text>
+                      <Text style={styles.quickInputSaveButtonText}>SAVE</Text>
                     </ImageBackground>
                   </TouchableOpacity>
                 )}
@@ -128,19 +142,22 @@ const QuickNotesNumbers: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  quickInputContainer: {
     flex: 1,
     paddingBottom: 20,
   },
-  gradientBlock: {
+
+  quickInputGradientBlock: {
     width: '90%',
     alignSelf: 'center',
     borderRadius: 22,
   },
-  gradientContent: {
+
+  quickInputGradientContent: {
     padding: 20,
   },
-  header: {
+
+  quickInputHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -148,13 +165,16 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingBottom: 16,
   },
-  backButton: {
+
+  quickInputBackButton: {
     padding: 4,
   },
-  backButtonImage: {
+
+  quickInputBackButtonImage: {
     resizeMode: 'contain',
   },
-  boardText: {
+
+  quickInputBoardText: {
     fontSize: 12,
     fontFamily: 'PaytoneOne-Regular',
     color: '#45000A',
@@ -162,7 +182,8 @@ const styles = StyleSheet.create({
     width: '50%',
     paddingHorizontal: 10,
   },
-  introBoard: {
+
+  quickInputIntroBoard: {
     width: 262,
     height: 180,
     justifyContent: 'center',
@@ -171,20 +192,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignSelf: 'center',
   },
-  title: {
+
+  quickInputTitle: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
     textTransform: 'uppercase',
   },
-  headerSpacer: {
+
+  quickInputHeaderSpacer: {
     width: 50,
   },
-  displayWrap: {
+
+  quickInputDisplayWrap: {
     paddingHorizontal: 24,
     marginBottom: 20,
   },
-  display: {
+
+  quickInputDisplay: {
     backgroundColor: '#DF1503',
     borderRadius: 22,
     paddingHorizontal: 20,
@@ -193,21 +218,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
   },
-  displayText: {
+
+  quickInputDisplayText: {
     fontSize: 32,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
   },
-  keypad: {
+
+  quickInputKeypad: {
     paddingHorizontal: 24,
   },
-  keypadRow: {
+
+  quickInputKeypadRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 12,
     marginBottom: 12,
   },
-  keypadBtn: {
+
+  quickInputKeypadBtn: {
     width: 63,
     height: 65,
     backgroundColor: '#DF1503',
@@ -217,22 +246,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backspaceBtn: {
+
+  quickInputBackspaceBtn: {
     width: 72,
   },
-  keypadBtnText: {
+
+  quickInputKeypadBtnText: {
     fontSize: 32,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',
   },
-  saveButton: {
+
+  quickInputSaveButton: {
     width: 140,
     height: 66,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  saveButtonText: {
+
+  quickInputSaveButtonText: {
     fontSize: 18,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',

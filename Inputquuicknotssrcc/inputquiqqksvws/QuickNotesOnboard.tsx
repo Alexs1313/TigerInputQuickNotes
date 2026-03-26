@@ -1,9 +1,13 @@
+// Onboard
+
+import QuickNotesLayout from '../inptquqkkcmpnts/QuickNotesLayout';
+import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
+
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import {
   Image,
   ImageBackground,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,15 +16,12 @@ import {
 import type { ImageSourcePropType } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import QuickNotesLayout from '../QuickNotescmpnts/QuickNotesLayout';
-import { QuickNotesRoutesList } from '../[Notesrttnvgts]/QuickNotesStack';
-
-type NavigationProp = StackNavigationProp<
+type QuickInputNavigationProp = StackNavigationProp<
   QuickNotesRoutesList,
   'QuickNotesOnboard'
 >;
 
-const tggOnboardImges: ImageSourcePropType[] = [
+const quickInputOnboardImages: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/on1.png'),
   require('../QuickNotesAssets/images/wlcm/on2.png'),
   require('../QuickNotesAssets/images/wlcm/on3.png'),
@@ -28,7 +29,7 @@ const tggOnboardImges: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/on4.png'),
 ];
 
-const tggOnboardTxts: ImageSourcePropType[] = [
+const quickInputOnboardTexts: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/text1.png'),
   require('../QuickNotesAssets/images/wlcm/text2.png'),
   require('../QuickNotesAssets/images/wlcm/text3.png'),
@@ -36,19 +37,19 @@ const tggOnboardTxts: ImageSourcePropType[] = [
   require('../QuickNotesAssets/images/wlcm/text4.png'),
 ];
 
-const buttonLavel = ['CONTINUE', 'OK', 'NICE', 'NEXT', 'LETS GO'];
+const quickInputButtonLabel = ['CONTINUE', 'OK', 'NICE', 'NEXT', 'LETS GO'];
 
 const QuickNotesOnboard: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const navigation = useNavigation<NavigationProp>();
+  const [quickInputCurrentIndex, setQuickInputCurrentIndex] = useState(0);
+  const quickInputNav = useNavigation<QuickInputNavigationProp>();
 
-  const tggBrtnNext = useCallback(() => {
-    setCurrentIndex(prev => {
+  const quickInputNextButton = useCallback(() => {
+    setQuickInputCurrentIndex(prev => {
       const next = prev + 1;
-      if (next > 4) navigation.navigate('QuickNotesHome');
+      if (next > 4) quickInputNav.navigate('QuickNotesHome');
       return Math.min(next, 4);
     });
-  }, [navigation]);
+  }, [quickInputNav]);
 
   return (
     <QuickNotesLayout>
@@ -62,27 +63,30 @@ const QuickNotesOnboard: React.FC = () => {
       >
         <ImageBackground
           source={require('../QuickNotesAssets/images/wlcm/onboardframe.png')}
-          style={styles.textboard}
+          style={styles.quickInputTextboard}
         >
-          <Image source={tggOnboardTxts[currentIndex]} />
+          <Image source={quickInputOnboardTexts[quickInputCurrentIndex]} />
         </ImageBackground>
+
         <Image
-          source={tggOnboardImges[currentIndex]}
+          source={quickInputOnboardImages[quickInputCurrentIndex]}
           style={[
-            styles.onboardImage,
-            currentIndex === 1 && { marginTop: 70 },
-            currentIndex === 2 && { marginTop: 60 },
-            currentIndex === 3 && { marginTop: 80 },
-            currentIndex === 4 && { marginTop: 80 },
+            styles.quickInputOnboardImage,
+            quickInputCurrentIndex === 1 && { marginTop: 70 },
+            quickInputCurrentIndex === 2 && { marginTop: 60 },
+            quickInputCurrentIndex === 3 && { marginTop: 80 },
+            quickInputCurrentIndex === 4 && { marginTop: 80 },
           ]}
         />
 
-        <TouchableOpacity onPress={tggBrtnNext} activeOpacity={0.8}>
+        <TouchableOpacity onPress={quickInputNextButton} activeOpacity={0.8}>
           <ImageBackground
             source={require('../QuickNotesAssets/images/wlcm/btn.png')}
-            style={styles.button}
+            style={styles.quickInputButton}
           >
-            <Text style={styles.buttonText}>{buttonLavel[currentIndex]}</Text>
+            <Text style={styles.quickInputButtonText}>
+              {quickInputButtonLabel[quickInputCurrentIndex]}
+            </Text>
           </ImageBackground>
         </TouchableOpacity>
       </View>
@@ -91,27 +95,27 @@ const QuickNotesOnboard: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  background: {
+  quickInputBackground: {
     flex: 1,
   },
-  textboard: {
+  quickInputTextboard: {
     width: 355,
     height: 241,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  onboardImage: {
+  quickInputOnboardImage: {
     marginBottom: 38,
   },
-  button: {
+  quickInputButton: {
     width: 236,
     height: 74,
     justifyContent: 'center',
     alignItems: 'center',
     resizeMode: 'contain',
   },
-  textboardText: {
+  quickInputTextboardText: {
     fontSize: 13,
     fontFamily: 'Manrope-Bold',
     color: '#fff',
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
   },
-  buttonText: {
+  quickInputButtonText: {
     fontSize: 20,
     fontFamily: 'Manrope-ExtraBold',
     color: '#fff',

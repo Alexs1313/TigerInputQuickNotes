@@ -162,7 +162,7 @@ const QuickNotesAddNote: React.FC = () => {
 const styles = StyleSheet.create({
   quickInputContainer: {
     flex: 1,
-    paddingBottom: 20,
+    paddingBottom: 21,
   },
 
   quickInputDarkScreen: {
